@@ -1,0 +1,1116 @@
+%\VignetteIndexEntry{Small-Sample Adjustments for Wald-type Tests using Sandwich Estimators}
+%\VignetteKeywords{covariance matrix estimators, sandwich estimators,Wald test}
+%\VignettePackage{saws}
+
+
+\documentclass[12pt]{article}
+\topmargin -0.45in
+\textheight 8.2in
+%\textwidth 6in
+\textwidth 7.0in
+%\oddsidemargin 0.25in
+\oddsidemargin -.25in
+\begin{document}
+\baselineskip 24pt
+
+%define notation for Var(U_{i}^{*} | \widehat{\Omega}^{*} ) = \vus_i
+\newcommand{\vus}{\Psi}
+%\begin{titlepage}
+\begin{center} {\large Small-Sample Adjustments for Wald-type Tests using Sandwich Estimators }
+\\ Michael P. Fay$^{*}$ and Barry I. Graubard$^{\#}$ \\
+
+(This is the same a Biometrics, 2001, 57: 1198-1206, except for the 
+formatting and the contact information, which has been updated on 
+October 19, 2007)
+
+
+\end{center}
+\hspace*{-.2in} $^{*}$ National Institute of Allergy and Infectious 
+Diseases \\
+%Phone: (301) 402-4285  \\
+Email: mfay@niaid.nih.gov  \\
+\hspace*{-.2in} $^{\#}$ National Cancer Institute \\
+Email: graubarb@exchange.nih.gov \\
+%and \\[4ex]
+%Barry I. Graubard \\
+%National Cancer Institute \\
+%6120 Executive Blvd MSC 7242 \\
+%Bethesda, Maryland 20892-7335 \\
+%USA  \\
+%Email: graubarb@mail.nih.gov
+%\\[4ex]
+%October 26, 2000
+\hspace*{2in} August 13, 2001
+ %\end{center}
+%\end{titlepage}
+
+
+\section*{ }
+\begin{center}
+SUMMARY
+\end{center}
+
+The sandwich estimator of variance may be used to create robust Wald-type tests
+from estimating equations that are sums of $K$ independent or approximately independent
+terms.  For example, for repeated measures data on $K$ individuals, each term relates to a different individual.
+These tests applied to a parameter may  have greater than nominal size
+if either $K$ is small, or more
+generally if the parameter to be tested is
+essentially estimated from  a small number of terms in the estimating equation.
+We offer some practical modifications to these robust Wald-type tests
+which  asymptotically approach the usual robust Wald-type tests.
+We show that one of  these modifications provides exact coverage for a simple case,
+and examine by simulation the modifications applied to the generalized estimating equations of Liang and Zeger (1986), conditional logistic regression, and
+the Cox proportional hazard model.
+
+
+
+{\it Keywords:} Conditional logistic regression; Cox proportional hazards model; Generalized estimating equations; Robust Wald statistics; Sandwich estimator; Small sample size
+
+\section{Introduction}
+\label{sec-introduction}
+
+
+
+
+The sandwich estimator of variance has been used with many different types of data
+to provide inferences robust to certain model misspecifications. We mention three examples,
+Liang and Zeger (1986),
+using their generalized estimating equations (GEEs),
+applied sandwich estimators of variances to repeated measures data,
+Lin and Wei (1989) applied them to the Cox proportional hazards model, and
+Fay, et al. (1998) applied them to conditional logistic regression.
+Each of these applications use estimating equations with $K$ independent or approximately
+independent terms.  The Wald-type  tests used with the sandwich estimator
+are valid as $K$ goes to infinity. For finite samples simulations have shown that
+these (unadjusted)  Wald sandwich tests tend to be liberal
+(see Emrich and Piedmonte, 1992; Fay et al. 1998; Gunsolley, Getchell, and Chinchilli, 1995;
+Lin and Wei, 1989;  and Mancl and DeRouen, 2001).
+In this paper we consider finite sample adjustments for  Wald sandwich tests and
+apply them to quite general estimating equations which
+include the three applications mentioned above.
+
+Consider the data that motivated this research.
+Fay, et al. (1997) performed a meta analysis to
+determine the effect of different types of dietary fat on the development of mammary tumors in rodents.
+The analysis combined 146 experiments (``sets" in the  terminology of Fay et al., 1997).
+Each experiment has
+two or more groups  of animals, each group receives
+the same intervention except for diets,
+and the response is the number of animals in the group
+that develop tumors.
+Although within an experiment there were only diet differences between the groups, between experiments there
+were many differences. For example, the type and/or dose of carcinogen and the amount of follow-up time varied between experiments.
+Thus, as detailed in Fay, et al. (1998), a conditional logistic regression was used to condition out intercept differences
+between experiments, and a sandwich estimator of variance was used to account for heterogeneity of the diet parameters.
+A random effects model for the diet parameters was not tractable because each of the diet effects was not varied within each experiment.
+For example, Fay et al. (1997) measured effects of 4 types of fat, but one of the
+types of fats,  n-3 polyunsaturated fatty acid (n-3 PUFA),  was rarely present except in very small portions. Only 22 of the experiments had any dietary groups with
+greater than 1\% of the dietary fat equal to n-3 PUFA.
+Thus, it is difficult to estimate a random effect for the n-3 PUFA parameter in all but these 22 experiments.
+The important aspect of these data for this paper is that
+% the effect of n-3 PUFA is primarily estimated from a small proportion of the experiments, and
+even though there is a large sample size of independent observations, i.e.,  146 experiments that make up the terms in the estimating equation,
+there is an effectively small sample size for testing the n-3 PUFA parameter.  When a parameter is primarily
+estimated from a small proportion of the terms in the estimating equations (e.g., the n-3 PUFA parameter in the diet data),
+we call the estimating equations unbalanced for that parameter.
+We reanalyze the diet data in section~\ref{sec-sim.clrs}.
+
+We propose two types of adjustments.
+%Two types of small sample adjustments for Wald sandwich %tests have been proposed in the literature.
+First, we use Taylor series approximations to adjust for the bias of the sandwich estimator of variance.
+%Many authors have proposed adjustments to correct the %bias of the middle of the sandwich estimator.
+Mancl and DeRouen (2001) provide such an adjustment for GEEs and compare it to many earlier bias corrections (see that paper for earlier references).
+In this paper we propose a  bias correction  similar to that of Mancl and DeRouen (2001),
+but our correction may be applied to more general estimating equations than the GEE.
+Our second adjustment
+is to use an F (or t) distribution  instead of
+a chi square (or a normal) distribution to calculate significance.
+Others have used this adjustment with the canonical use of  1 and  $K-p$ degrees of freedom, where $p$ is the number of parameters describing the mean
+(see  Lipsitz, et al. 1994
+and Mancl and DeRouen, 2001,
+for the GEE case).  As seen for the diet example above,
+these canonical degrees of freedom  may not be appropriate for estimating equations that are unbalanced for certain parameters.
+%some of the parameters are estimated from
+%essentially a small number of terms in the estimating equation.
+This problem was noted by  Chesher and Austin (1991)
+for the simple linear model.
+%Our correction uses a Taylor approximation on the estimating equations, and
+%when  applied to the GEE  this is equivalent to a Taylor approximation on the weighted residuals,
+%while Mancl and DeRouen (2001)  approximate the unweighted residuals with Taylor series.
+We propose an estimator of degrees of freedom that produces different degrees of freedom depending on which parameter (or combination of parameters) is being tested. These estimators can more properly
+adjust for situations such as the diet example.
+Similar but not equivalent small sample adjustments
+have been proposed for some special cases (see
+Fay, et al., 1998 for conditional logistic regression; Lipsitz and Ibrahim (1999) for linear regression; and Fai and Cornelius (1996) for unbalanced split-plot experiments).
+
+Because of the way we motivate our degrees of freedom estimators,
+we restrict ourselves to tests of linear combinations of parameters.
+In other words if $\beta$ is the parameter vector, then we are restricted to
+tests with null hypotheses equal to
+$C^{T} \beta = C^{T} \beta_{0}$, where $\beta_0$ is known, and $C$ is a vector of constants (i.e., $C$ is not allowed to
+be a matrix).
+
+In section~\ref{sec-background} we review the use of the sandwich estimator
+of variance and its associated Wald test. In section~\ref{sec-adjs} we
+propose our bias correction and compare it to that of Mancl and DeRouen (2001), and in section~\ref{sec-pivot}
+we propose some degrees of freedom estimators.
+In section~\ref{sec-simulations}
+we examine one special case where one of the modifications produces an exact test,
+and we perform simulations to test these modifications when used with GEEs, conditional logistic regression, and Cox proportional hazards models.
+
+\section{Main Result}
+\label{sec-main}
+
+\subsection{Background}
+\label{sec-background}
+
+Consider estimating equations of the form,
+$\sum_{i=1}^{K} U_{i} (\beta)  =  0$, where
+$\beta$ is a $p \times 1$ parameter vector.
+Let $\widehat{\beta}$ be the solution to the estimating equations.
+Let $U_{i} = U_{i}(\beta)$ and let
+a hat over any function denote evaluation at $\widehat{\beta}$
+(e.g.,  $\widehat{U}_{i}=U_{i}(\widehat{\beta})$).
+Assume $E\left\{ \sum_{i=1}^{K} U_{i}(\beta_{0}) \right\}=0$ for some $\beta_{0}$,
+and both $\mbox{cov} \left\{ U_{i}(\beta_0), U_{j}(\beta_0) \right\}
+\rightarrow 0$ for $i \neq j$,  and
+$\widehat{\beta} - \beta_{0} \stackrel{P}{\rightarrow} {0}$  as $K \rightarrow \infty.$
+We use a Taylor series approximation about $\hat{\beta}$ but replace the derivative by an estimator,
+\begin{eqnarray}
+U_{i}  \approx  \widehat{U}_{i}   - \widehat{\Omega}_{i}  \left( \beta  - \widehat{\beta}  \right), \label{eq:Ui}
+\end{eqnarray}
+where $\widehat{\Omega}_{i}$ is an estimator of $ -   \partial U_{i}/\partial \beta$ evaluated at $\widehat{\beta}$.
+Summing over all clusters and rearranging terms gives,
+\begin{eqnarray}
+\widehat{\beta} - \beta \approx V_{m}
+\left( \sum_{i=1}^{K} U_{i} \right), \label{eq:betahat.minus.beta}
+\end{eqnarray}
+ where
+  $V_{m} = \left( \sum_{i=1}^{K} \widehat{\Omega}_{i} \right)^{-1}$ and will be called the
+``model-based'' variance. If $V_{m}$
+is approximately constant with small changes in $\widehat{\beta}$, then
+ the variance of $\widehat{\beta} - \beta$ may be estimated with
+the sandwich estimator, $V_{s} =  V_{m} \left( \sum_{i=1}^{K} \widehat{U}_{i} \widehat{U}_{i}^{T} \right) V_{m}$.
+
+We consider hypotheses of the form, Null: $C^{T} \beta = C^{T} \beta_{0}$ vs.
+Alternative: $C^{T} \beta \neq C^{T} \beta_{0}$,
+where $C$ is a  $p \times 1$ vector of constants.
+For example, we test whether $\beta_{j}=0$ or not by
+letting $C$ be all zeros except for a one in the $j$th row and  $\beta_{0}={0}$.
+The unadjusted Wald sandwich test
+rejects when $T_{s}^{2} = \left\{ C^{T}(\widehat{\beta} - \beta_{0}) \right\}^{2} / C^{T} V_{s} C   > \left( \chi^{2}_{1} \right)^{-1} (1-\alpha)$, where  $\left( \chi^{2}_{1} \right)^{-1} (q)$ is the $q$th quantile of the chi-square distribution
+with one degree of freedom.
+
+
+\subsection{A Bias-Corrected Sandwich Covariance Estimator}
+\label{sec-adjs}
+
+Mancl and DeRouen (2001) motivated a bias correction of $V_{s}$ for the GEE case by using a first-order Taylor series expansion of the $i$th residual vector together with approximation~(\ref{eq:betahat.minus.beta}),
+%$\widehat{\beta} - \beta \approx V_{m}
+%\left( \sum_{i=1}^{K} U_{i} \right)$,
+to approximate the expected value of the $i$th  squared residuals.
+Analogously, we use a first-order Taylor series expansion of $U_{i}$  (approximation~(\ref{eq:Ui})) together with approximation~(\ref{eq:betahat.minus.beta}),
+to obtain,
+\begin{eqnarray}
+E\left( \widehat{U}_{i} \widehat{U}^{T}_{i}  \right)  & \approx &
+\left( I_{p} -  \widehat{\Omega}_{i}  V_{m}  \right) \vus_{i} \left( I_{p}   - \widehat{\Omega}_{i}  V_{m}  \right)^{T}
++\widehat{\Omega}_{i}  V_{m}  \left( \sum_{j \neq i}  \vus_{j} \right)  V_{m}  \widehat{\Omega}_{i},
+%\vus_{i} -   \widehat{\Omega}_{i}  V_{m} \vus_{i} -  \vus_{i} V_{m}  %\widehat{\Omega}_{i} +
+%\widehat{\Omega}_{i}  V_{m}  \left( \sum_{j=1}^{K}  \vus_{j} \right)  %V_{m}  \widehat{\Omega}_{i},
+\label{eq:hvushi}
+\end{eqnarray}
+where $\vus_{i} = \mbox{cov}(U_{i})$ and $I_{p}$ is a $p \times p$ identity matrix.
+%For the GEE case Equation~(\ref{eq:hvsui}) is equivalent to equation~2
+For tractability, Mancl and DeRouen (2001) motivated their bias correction by assuming the  the last term in their expression~(4) is small
+(note there is a typo in expression~(4) of Mancl and DeRouen (2001); the $\mbox{cov}({y}_{i})$ in last term should be $\mbox{cov}(y_{j})$), which is analogous to assuming here that the last term in expression~(\ref{eq:hvushi}) is small.
+
+We take a different approach to tractability. We consider a correction that is reasonable when the working variance model is approximately
+within a scale factor of the true variance, i.e., when
+$\vus_{i} \approx c \widehat{\Omega}_{i}$ for all $i$ and some constant $c$ and the model-based variance is consistent.
+For example, in the GEE case this would occur when the correlation model is correctly specified.
+When $\vus_{i} \approx c \widehat{\Omega}_{i}$, approximation~(\ref{eq:hvushi}) simplifies to
+%\begin{eqnarray*}
+$E\left( \widehat{U}_{i} \widehat{U}_{i}^{T}
+ \right)
+ \approx  \left( I_{p} - \widehat{\Omega}_{i} V_{m}  \right) \vus_{i}
+\approx
+\vus_{i}
+\left( I_{p} -  V_{m}  \widehat{\Omega}_{i} \right).$
+%\end{eqnarray*}
+To partially correct for this bias (i.e., $E\left( \widehat{U}_{i} \widehat{U}_{i}^{T}
+ \right) \neq \vus_{i}$) we estimate $\vus_{i}$ with
+$\widehat{\vus}_{i} = H_{i}  \widehat{U}_{i} \widehat{U}^{T}_{i} H_{i}^{T}$, where $H_{i}$ is given below
+and the form of the correction ensures that $\widehat{\vus}_{i}$ is a symmetric nonnegative definite matrix.
+In general,
+$\left( I_{p} - \widehat{\Omega}_{i} V_{m}  \right)$ is not symmetric, so that the choice of $H_{i} =
+\left( I_{p} - \widehat{\Omega}_{i} V_{m}  \right)^{-1/2}$ may not exist.
+Instead, we propose the simple bias correction of letting
+%in place of $\widehat{U}_{i} \widehat{U}^{T}_{i}$ in ${V}_{s}$,
+ $H_{i}$ be a $p \times p$ diagonal matrix with $jj$th element
+equal to $\left\{ 1- \min\left(b, \{ \widehat{\Omega}_{i} V_m \}_{jj} \right) \right\}^{-1/2}$,
+where $b<1$ is a constant defined by the user. Setting a bound,  $b$, is a practical necessity to
+prevent extreme adjustments when the $jj$th element of $\widehat{\Omega}_{i} V_m$ is very close to 1.
+(In fact it is possible for the $jj$th element of $\widehat{\Omega}_{i} V_m$ to be greater than 1, see http://srab.cancer.gov/sandwich.)
+We arbitrarily use $b=.75$ for our simulations which ensures that each diagonal element of $H_{i}$ is less than or equal to  $2$.
+We write this adjusted sandwich estimator as
+${V}_{a} = V_{m} \left( \sum_{i=1}^{K} H_{i}  \widehat{U}_{i} \widehat{U}^{T}_{i} H_{i} \right)  V_{m}$.
+%For the proportional hazards example, the
+%(proportionally) correctly specified model
+%would not necessarily have $\vus_{i} = c \widehat{\Omega}_{i}$,
+%but only $\sum \vus_{i} = c \sum \widehat{\Omega}_{i}$. Nevertheless,
+%we use the same adjustment for that case as well.
+Although the bound .75 is arbitrary, the bound of $b=.75$ is rarely reached.
+For example,
+the simulations in section~\ref{sec-simulations} gave almost exactly
+the same results (results not shown) when run
+without any bound (i.e., the bound is infinity).
+
+\subsection{An Approximate F-Distribution}
+\label{sec-pivot}
+
+Let $T_{a}^{2}$ be the  Wald test statistic using ${V}_{a}$ instead of
+${V}_{s}$. The main result motivated in this section is
+\begin{eqnarray}
+T_{a}^{2} =
+\frac{ \left\{ C^{T}(\widehat{\beta} - \beta_{0}) \right\}^{2} }{ C^{T} {V}_{a} C}
+\approx  \frac{ U^{T} B_{0} U }{ U^{T} B_{1} U   } \stackrel{\cdot}{\sim} F_{1,d}
+\label{eq:Ta2}
+\end{eqnarray}
+where $\stackrel{\cdot}{\sim}$ denotes approximate distribution under the null hypothesis,
+$U^{T} = [U_{1}^{T} \; \; \cdots \; \; U_{k}^{T}]$, $B_0$ and $B_{1}$ are $pK \times pK$ matrices given in appendix~\ref{app-quad}, $F_{1,d}$ is an F distribution with 1 and $d$ degrees of freedom, and we give estimators of $d$ later.
+Following a standard derivation of the $F$ distribution,
+our $F$ distribution approximation may be motivated by the following 3 approximate conditions:
+(1) $\sigma^{-2} U^{T} B_{0} U \stackrel{\cdot}{\sim} \chi^{2}_{1}$, (2) $\sigma^{-2} d U^{T} B_{1} U \stackrel{\cdot}{\sim} \chi^{2}_{d}$,
+and (3) $U^{T} B_{0} U$ and $U^{T} B_{1} U$ are approximately independent, where
+$\sigma^{2} = \mbox{var}\left\{ C^{T} \left( \widehat{\beta} - \beta_{0} \right) \right\}.$
+We discuss each of these approximations in appendix~\ref{app-quad}.
+
+
+In order to estimate $d$ we need estimators of $\vus_{i}$ for
+$i=1,\ldots,K$.
+We estimate ${\vus}_{i}$ in one of two ways. First, we simply use $\widehat{\vus}_{i}$ as in Section~\ref{sec-adjs}; this estimator tends to overestimate the heterogeneity of the $\vus_{i}$.
+%This overestimation is apparent when
+%all
+One can see this by noting that even when
+all $\vus_{i}$ are equal, the $\widehat{\vus}_{i}$ vary.
+The associated estimator of $d$ is
+\begin{eqnarray}
+\widehat{d}_{H} = \frac{  \left\{ \mbox{trace}\left( \widehat{\vus}B_1 \right) \right\}^{2} }{ \mbox{trace}
+\left( \widehat{\vus} B_1 \widehat{\vus} B_1  \right) },
+\label{eq:traces}
+\end{eqnarray}
+where
+$\widehat{\vus} = \mbox{block diagonal}
+( \widehat{\vus}_{1}, \;\; \cdots \; \; \widehat{\vus}_{K} )$  (see Appendix~\ref{app-quad}
+%for the motivation of equation~(\ref{eq:traces})).
+).
+
+Alternatively,
+we  propose the more complicated
+$\tilde{\vus}_{i} =  w_{i}  \left( \sum_{\ell =1}^{K} w_{\ell} \right)^{-1} \left( \sum_{j=1}^{K} \widehat{\vus}_{j} \right)$
+where
+\\
+$w_{i} =  C^T \left\{  \left( \sum_{j \neq i} \widehat{\Omega}_{j} \right)^{-1} -
+%\right.$ $ \left.
+V_{m}  \right\} C$ and $w_{i} \left( \sum w_{\ell} \right)^{-1}$ represents the proportional reduction in the model-based variance of
+$C^{T}( \widehat{\beta} - \beta)$
+due to adding the $i$th cluster.  The idea behind the $\tilde{\vus}_{i}$ is that it
+smooths the extremely variable estimates $\widehat{\vus}_{j}$, $j=1,\ldots,K$,
+yet unlike the unweighted sum (i.e., using $K^{-1} \sum \widehat{\vus}_{j}$
+to estimate each $\vus_{i}$)  it still accounts for some of the differences in cluster variability
+associated with the working variance model.
+We estimate $\tilde{d}_{H}$ in a similar manner to $\hat{d}_{H}$ by
+replacing $\widehat{\vus}_{i}$ with $\tilde{\vus}_{i}$ in equation~\ref{eq:traces}.
+
+To see if the adjustment of section~\ref{sec-adjs}
+is necessary,  we estimate the distribution of $T_{s}^{2}$
+with an $F$ distribution with 1 and ${d}$ (equal to either $\widehat{d}$
+or $\tilde{d}$) degrees of freedom.
+Here $\widehat{d}$ is calculated the same as $\widehat{d}_{H}$ except
+replace $H_{i}$ with an
+identity matrix for all $i$. Similarly define $\tilde{d}$.
+We compare the different methods in section~\ref{sec-simulations}.
+
+The adjustments of this section do not affect
+the asymptotic properties of the unadjusted Wald sandwich test.
+%standard sandwich Wald test.
+Under the assumption that the data are sufficiently regular such that
+$\widehat{\Omega}_{i} \left( \sum \widehat{\Omega}_{j} \right)^{-1}
+\stackrel{P}{\rightarrow} {0}$ for all $i$ and ${d} \rightarrow \infty$
+ as $K \rightarrow \infty$, then
+as $K \rightarrow \infty$,
+ $\left( I_{p} -  \widehat{\Omega}_{i} V_{m} \right)^{-1} \stackrel{P}{\rightarrow} I_{p}$
+ and $V_{a} - V_{s} \stackrel{P}{\rightarrow} {0}$.
+Further, if ${d} \rightarrow \infty$ then  the
+$F_{1,{d}}$ distribution approaches a chi square
+distribution with 1 degree of freedom.
+Thus, even if the assumptions and approximations that motivate (\ref{eq:Ta2})
+are tenuous in some situations, the adjustments of this section may likely be an
+improvement over the unadjusted Wald sandwich test.
+
+\section{Simulations and Special Cases}
+\label{sec-simulations}
+
+%In this section we compare (primarily by simulation) 5 to 6 different tests under different situations. We denote the tests by $\delta_m$ and %$\delta_1,\ldots,\delta_5$. Each test compares a Wald-like test statistic
+%(either $T_{m}^{2}, T_s^{2}$, or $T_a^{2}$) which uses one of 3 types of variance (either $V_{m}, V_s$, or $V_a$) with a
+%distribution. See Table~\ref{tab-poisson} for the distributions and
+%variances that go with each test.
+
+\subsection{Normal Model with the Same Design for Each Cluster}
+\label{sec-norm.bal}
+
+Consider the (true) model
+$Y_{i} \sim N( X \beta, \Sigma )$,
+where $Y_{i}$ is an $n \times 1$ vector of responses, $X$ is an $n \times p$
+full-rank design matrix, $n \geq p$, and $\Sigma$ is a $p \times p$ covariance matrix.
+We use  independence estimating equations (see Liang and Zeger, 1986), i.e.,
+$U_{i} = \widehat{\phi} X^{T} (Y_{i} - X \beta)$,
+where $\widehat{\phi}^{-1}$ is a scalar dispersion estimator.
+Under the null
+model for any non-degenerate $\Sigma$, $X$, and $C$,  then $T_{a}^{2}= \left\{ (K-1)/K \right\} T_{s}^{2} \sim F_{1,K-1}$. Further,
+here the degrees of freedom estimators, $\tilde{d}_{H}$ and $\tilde{d}$, give $K-1$, so that
+the test, say $\delta_5$,  that compares $T_{a}^{2}$
+with $F_{1,\tilde{d}_{H}}$ produces an
+exact test for any $K$ (see Appendix~\ref{sec-details.norm}).
+In contrast, for $K=20$, the standard sandwich test, $\delta_{1}$ ($T_{s}^{2}$ compared to $\chi^{2}_{1}$), has size .071,
+$\delta_{2}$ ($T_{s}^{2}$ compared to $F_{1,\widehat{d}}$) has simulated size .034,
+$\delta_{3}$ ($T_{s}^{2}$ compared to $F_{1,\tilde{d}}$) has  size .055,
+$\delta_{4}$ ($T_{a}^{2}$ compared to $F_{1,\widehat{d}_{H}}$) has simulated size .031,
+where the simulations had 100,000 replications.
+The associated test statistic of Mancl and DeRouen (2001) is $T_{MD}^{2} = \left\{ (K-1)/K \right\}^{2} T_{s}^{2}$.
+For $K=20$ comparing $T_{MD}^{2}$ to $\chi^{2}_{1}$ has size  .059, while comparing it to
+$F_{1,K-p}$ with $p=1$ has size  .045, and comparing it to $F_{1,K-p}$ with $p=2$ has size .044.
+Thus, in this case $\delta_5$ performs best, but $\delta_3$ and the tests of Mancl and DeRouen (2001) have close to nominal size.
+
+\subsection{Generalized Estimating Equations}
+
+Consider GEEs of the form (see Liang and Zeger, 1986),
+$\sum_{i=1}^{K} U_{i} (\beta)  =
+\sum_{i=1}^{K} D_{i}^{T}(\beta) {V}_{i}^{-1}(\beta)  \left\{ Y_{i} - \mu_{i}(\beta) \right\}$,
+where $Y_{i}$ is a $n_{i} \times 1$ vector of responses, $\mu_{i}$ is the model of $E(Y_{i})$,
+$D_{i}  =  \partial \mu_{i}(\beta) / \partial \beta$
+and  ${V}_{i}(\beta)$ estimates the ``working variance''
+of $Y_{i}$.
+The function ${V}_{i}(\beta)$ has a complicated form. (It is denoted $\tilde{V}_{i}(\beta)$ in Liang and Zeger, 1986. See that paper for details).
+%With details,
+%${V}_{i}(\beta)  =  \phi^{-1}(\beta)  A_{i}^{1/2}(\beta)
+%R_{i}\left( \alpha
+%\left\{ \beta,\phi(\beta) \right\} \right) A_{i}^{1/2}(\beta)$,
+%where $A_{i}$ is an $n_i \times n_i$ diagonal matrix with $jj$th element
+%proportional to the model of
+%$\mbox{var }(Y_{ij})$,
+% $R_{i}(\alpha)$ models the correlation within the
+%$i$th cluster and is described by a vector of parameters $\alpha$ which is estimated
+%a  $K^{1/2}$ consistent estimator $\alpha(\beta,\phi)$, and
+%$\phi(\beta)$ is $K^{1/2}$ consistent for the scalar dispersion factor, $\phi$,
+%and finally $| \partial {\alpha}^{*}(\beta,\phi)/\partial \phi |$ is $O_{P}(1)$.
+%In the notation of the previous section,
+%\begin{eqnarray*}
+%\Omega_{i} (\beta) & = & - \frac{ \partial}{ \partial \beta } \left[ D_{i}^{T} (\beta) V_{i}^{-1}(\beta,\theta) \right]
+%E \left[ Y_{i} - \mu_{i}(\beta) \right] +
+%D_{i}^{T} (\beta) V_{i}^{-1}(\beta,\theta) D_{i} (\beta) \\
+%& = & D_{i}^{T} (\beta) V_{i}^{-1}(\beta,\theta) D_{i} (\beta)
+%\end{eqnarray*}
+Let our estimate of $-  \partial U_{i}/ \partial \beta$ be
+$\widehat{\Omega}_{i}   =  \widehat{D}_{i}^{T} \widehat{V}_{i}^{-1} \widehat{D}_{i}$, and
+$V_{s}$ is the sandwich estimator proposed by Liang and Zeger (1986).
+To test the GEE models we simulated  both Poisson and binomial data and tested the GEE model with both independence and  exchangeable working correlation within cluster.
+
+For the Poisson case we simulated 4 types of
+data sets all with $K=20$ clusters. Each type
+of data set is denoted by one level of each of 2 descriptors, the variance
+(either  Poisson or overdispersed Poisson), and
+the treatment assignment (either changed within cluster or
+fixed within cluster).
+For the models that changed treatment assignments within
+cluster we used the working independence variance and for those that
+did not we used the working exchangeable variance.
+For the model-based variance we included a scalar overdispersion
+term as described in Liang and Zeger (1986); it is the default in
+the \sffamily yags \normalfont software which we modified to use for this simulation
+(the  \sffamily yags \normalfont function written in Splus by V. Carey, is reviewed in Horton and Lipsitz, 1999, and can be found at
+http://biosun1.harvard.edu/\~{ }carey/index.ssoft.html).
+The details of the data generation are listed with the results in
+Table~\ref{tab-poisson}.
+We see that  $\delta_{1}$ is liberal in all 4 cases,
+$\delta_3$ is less liberal, while $\delta_5$
+appears to have values closer to the nomial level.
+The test  $\delta_6$ ($T_{MD}^{2}$ compared to $F_{1,K-p}$) appears to perform well, although
+perhaps slightly conservatively.
+The tests $\delta_2$ and $\delta_4$ can be very conservative especially
+in the cases with both treatments in each cluster.
+We see in the last column of the first row that
+$\delta_{m}$ may perform very poorly when the model is misspecified.
+All of the modified tests ($\delta_2,\delta_3,\delta_4$, $\delta_5$, and $\delta_6$)
+appear to have sizes that come
+closer to maintaining the nominal level than the
+standard sandwich test, and
+the average length of the confidence intervals
+give a crude measure of the price paid to achieve those sizes.
+
+We modeled the simulation for logistic regression after real data. Preisser and Qaqish (1999) have made available
+data from the Guidelines for Urinary Incontinence Discussion and Evaluation (GUIDE) study at  http://www.phs.wfubmc.edu/data/uipreiss.html.
+Preisser and Qaqish (1999) use 5 covariates measured from a baseline survey
+to predict whether individual patients will respond yes or no that they are bothered
+by accidental loss of urine.
+There are 137 patients in the study from 38 practices, and 54 patients responded that
+they were bothered by their urinary incontinence.
+We fit a logistic model without each of the five covariates in the model  and used each of the five sets of fitted values as
+the true probability of response. Then simulated binary responses
+using those probabilities. Thus each of the five sets of
+simulated data come from a logistic
+model with one of the parameters  equal to zero. We then test whether that
+parameter equals zero.  For this simulation we let the working correlation
+%(i.e., $R_{i}$)
+be the independence model.
+The results are presented in Table~\ref{tab-preisser}.
+In this case the model based variance is correctly specified and $\delta_{m}$ performs well, $\delta_{1}$
+is appears consistently liberal, while $\delta_{4}$ and $\delta_5,$ and appear quite conservative, with $\delta_2$ and $\delta_6$ slightly less conservative.
+In this case, $\delta_3$ appears to be the best of the sandwich tests.
+
+
+In Table~\ref{tab-vars}
+we  list the sample variance of the parameter estimate and compare it to the mean of the variance estimates for the four variance estimates, $V_{m}$, $V_{s}$,
+$V_{MD}$ (Mancl and DeRouen's, 2001, adjustment),  and $V_{a}$.
+We bold the variance estimator
+with mean closest to the sample variance of the parameter estimate.
+When the model is misspecified (see the fourth row),
+$V_{m}$ underestimates the variance, but otherwise $V_{m}$ does well.
+The estimator $V_{s}$ tends to underestimate the variance.
+The neither of the corrected sandwich variance estimates, $V_{MD}$ and $V_{a}$,
+appears to regularly outperform the other.
+In many situations both $V_{MD}$ and $V_a$ appear to overcorrect for bias.
+
+
+\subsection{Conditional Logistic Regression}
+\label{sec-sim.clrs}
+
+For conditional logistic regression, we have binary responses grouped into clusters,
+and within each cluster we condition on the total number of positive responses.
+The estimating equations can be written in terms of the sufficient statistic for
+$\beta$, $t_{i}$, i.e.,
+$U_{i}(\beta)  = t_{i} - E(t_i | \beta),$
+where $E(t_{i}|\beta)$ is the modeled value for $t_{i}$ given $\beta$.
+Then $\Omega_{i}(\beta)  = - \partial U_{i} / \partial \beta$.
+ For details see e.g., Fay, et al. (1998).
+
+
+
+We repeat 4 sets of the simulations from Fay et al. (1998) which were motivated by
+a meta-analysis. We briefly describe the simulations using the same terminology as Fay et al. (1998);
+see that paper for
+more details. Each simulation estimates ${\beta}=[ \beta_1 \; \; \beta_2]^{T}$ from
+$K$ clusters of 60 binary responses, and here we test
+whether ${\beta}_{1}$ is equal to zero or not.
+ Each of the 4 sets of simulations is described by
+both the ``Design'' (either A or D) and the ``Case'' (either 1 or 4), and consists of 1000 simulations.
+Design~A has $K=20$ clusters and by design  1/4 of the clusters do not contribute the estimation of
+$\beta_{1}$ because of conditioning, while similarly Design~D has $K=40$ clusters but 37/40 of the clusters
+do not contribute the estimation of
+$\beta_{1}$. The responses are all generated with a random intercept term for each cluster.
+For Case~1 the effects for $\beta$ are fixed, while for Case~4 these effects are random.
+Thus, the conditional logistic model is correctly specified for Case~1 but not for Case~4.
+All simulations are under the null hypothesis.
+The results are presented in Table~\ref{tab-clrs1}. Note that
+Design~D shows that $\delta_{1}$ can be very liberal in extreme cases.
+
+We return to the meta analysis of Fay, et al. (1997) mentioned in the introduction.
+The 6 different tests that the effect of the  n-3 PUFA is different from zero give two-sided p-values of
+ $p=0.0134$ for $\delta_m$,     $p= 0.3377$ for $\delta_1$,        $p=0.4136$ for $\delta_2$,
+$p= 0.3590$ for $\delta_3$, $p=0.4320$ for $\delta_4$, and $p=0.3824$ for $\delta_5$.
+If there is a random effect of the n-3 PUFA the usual sandwich
+test, $\delta_1$, gives better coverage than the model based test, $\delta_m$, but judging from our simulations may be slightly liberal.
+Based on our simulations,
+ the modified sandwich tests ($\delta_{2},\delta_3,\delta_4,$ and $\delta_5$)
+appear more likely to have nominal coverage.
+We recommend the use of either
+$\delta_3$ or $\delta_5$ for having better coverage than $\delta_1$
+while (usually) not being overly conservative.
+For details of the biological issues and the full model see
+Fay, et al. (1997).
+
+
+\subsection{Cox Proportional Hazards}
+
+
+%Lin and Wei (1989) showed how the sandwich estimator may be used with the standard (i.e., nonclustered) Cox proportional %hazards model.
+The Cox model uses the partial likelihood for right censored failure time data. Let
+%its  derivative
+the associated efficient score statistic for $\beta$
+be written as  $\sum_{i=1}^{K} U_{i}^{\bullet}(\beta)$, where the summation is over the
+$K$ individuals whose failure time may or may not be right censored
+(see Appendix~\ref{app-ph.notation} for details of the notation).  The terms $U_{i}^{\bullet}$ are not independent,
+but Lin and Wei (1989) showed that the estimating equation may be written as
+$\sum_{i=1}^{K} U_{i}^{\bullet}(\beta) = \sum_{i=1}^{K} U_{i}(\beta) $, where the $U_{i}$ are asymptotically independent,
+ $U_{i} = U^{\bullet}_{i} + U^{\circ}_{i}$, and where  $\sum_{i=1}^{K} U^{\circ}_{i}(\beta)=0$ for all
+$\beta$.
+Then $V_{m} =  - \left\{ \sum_{i=1}^{K}   \partial  U_{i}^{\bullet}/\partial \beta   + \partial U_{i}^{\circ}/\partial \beta   \right\}^{-1}
+= \left( \sum_{i=1}^{K}  - \partial U_{i}^{\bullet}/\partial \beta  \right)^{-1}$
+and the sandwich estimator of Lin and Wei (1989) is $V_s$.
+%We use similar notation
+%for the derivatives, $\Omega^{\bullet}_{i} = - \partial  U^{\bullet}_{i} / \partial \beta$,
+%and $\Omega^{\circ}_{i} = - \partial  U^{\circ}_{i} / \partial \beta$.  We do not need to define $\widehat{\Omega}_{i}$,  %an estimator for $-\left( \partial U_{i}/ \partial \beta \right)$, for either
+%$V_{m}$ nor $V_{s}$, since we can directly calculate the
+%sum,
+%$\left( \sum_{i=1}^{K} \frac{ \partial U_{i}}{ \partial \beta }
+%\right)^{-1}
+%= \left( \sum_{i=1}^{K} {\Omega}_{i}^{\bullet} + \sum_{i=1}^{K} {\Omega}_{i}^{\circ}
+%\right)^{-1} = \left( \sum_{i=1}^{K} {\Omega}_{i}^{\bullet} \right)^{-1}.$
+%We define the sum, $\left( \sum_{i=1}^{K} \widehat{\Omega}_{i} \right)^{-1} =
+%%\left( \sum_{i=1}^{K} \widehat{\Omega}_{i}^{\bullet} \right)^{-1}=V_{m}$,
+%and the sandwich estimator recommended by Lin and Wei (1989) is given by $V_{s}$.
+
+Although we do not need to define $\Omega_{i}$, our estimator of $ - \partial U_{i}/\partial \beta$,
+for  the calculation of $V_{m}$ and $V_{s}$,
+for our adjustments we do need to define $\Omega_{i}$ for $i=1,\ldots,K$.
+To do this we use numerical  derivatives,
+similar to the method that Gail, Lubin, and Rubinstein (1981) used  to calculate
+$\partial U_{i}^{\bullet}/\partial \beta$.
+%$\widehat{\Omega}_{i}^{\bullet}$.
+We let the $ab$th element of  $\widehat{\Omega}_{i}$ be
+$\left\{ \Omega_{i} (\widehat{\beta}) \right\}_{ab} =
+(4h)^{-1} \left\{ U_{ia}(\widehat{\beta}+h_b) - U_{ia}(\widehat{\beta}-h_b)+
+U_{ib}(\widehat{\beta}+h_a) - U_{ib}(\widehat{\beta}-h_a) \right\},$ where $U_{ia}$ is the $a$th element of $U_{i}$, $h_a$ is a vector of length $p$ with all
+zeros except the $a$th row which has a value of $h$, and $h$ is some small number. We use
+$h=0.0001$ for our simulations.
+
+We performed simulations on 3 true models, (1) a proportional hazards model, (2)
+model 10 from Table~1 of Lin and Wei (1989) in which the model-based test ($\delta_{m}$) performed worst
+for $K=50$,
+and (3) model 11 from the same table in which the sandwich test ($\delta_{1}$) performed worst for $K=50$.
+We give the details of the models and the results in Table~\ref{tab-ph}. Again the modified sandwich tests ($\delta_{2},\delta_3,\delta_4,$ and $\delta_5$)
+appear closer to the nominal level than the standard sandwich test, $\delta_{1}$,
+although $\delta_3$ appears quite liberal for $K=20$ for models~10 and 11.
+
+%\subsection{Software}
+%\label{sec-software}
+
+%All simulation were performed in Splus. The same function was used to %calculate the adjustment for all types of data after inputing only
+%$\widehat{\beta}$, $\widehat{U}^{*}$, and $\widehat{\Omega}^{*}_{i}, %i=1,\ldots,K$.
+%The programs that performed the simulations are freely available
+%at
+%\begin{quote}
+%\mbox{http://www.dccps.ims.nci.nih.gov/SRAB/sandwich.}
+%\end{quote}
+%At the same website we give a simulated data set that did not
+%converge from
+%Table~\ref{tab-poisson}, column~1. We also give a
+%simulated data set that gives a diagonal value of
+%$\widehat{\Omega}_{i}^{*} V_{m}$ greater than 1.
+
+\section{Discussion}
+
+We have examined 4 new modifications to the standard Wald
+test with a sandwich estimator of variance.
+These modifications were necessary because the standard sandwich test
+is liberal when the parameter to be tested is
+essentially estimated from  a small number of terms in the estimating equation.
+This liberalness can occur when either $K$, the number of terms in the estimating
+equation, is small, or when primarily a small proportion of terms are used to estimate the parameter (or linear combination of parameters).
+We have referred to
+the latter type of estimating equations as unbalanced for that parameter.
+%In contrast we call an estimating equation
+%``balanced'' for a parameter when  the parameter of interest is
+%estimated from  of the terms.
+%A more precise definition might use the sum of squared errors (SSE) of %the $w_{1}/\sum w_i,\ldots,w_K/\sum w_i$  (see Section~\ref{sec-pivot} %for the definition of the $w_{i}$'s)
+%to define balancedness, where a SSE of 0 denotes  a  perfectly balanced %situation and a SSE approaching 1 denotes the ideally unbalanced %situation.
+
+
+In all of our simulations the 4 new modifications had estimated size less than the liberal size of the standard sandwich test.
+In the simple balanced normal model, $\delta_5$ is exact, and
+$\delta_5$ did reasonably well in the other balanced cases (see Tables~\ref{tab-poisson} and \ref{tab-ph}, and Design~A from Table~\ref{tab-clrs1}).
+However, in more unbalanced cases (see Table~\ref{tab-preisser} and Design~D from Table~\ref{tab-clrs1}), $\delta_5$ appeared to produce a quite conservative test.
+%For the independence estimating equations studied in Table~\ref{tab-preisser}, we see from  Table~\ref{tab-vars}
+%that a partial cause of the conservativeness may be due to an overcorrection for the bias of the sandwich variance.
+For this reason, unless the data are fairly well balanced,
+we favor the use of $\delta_3$,
+which appears to be less liberal than $\delta_1$ but not overly conservative
+even for unbalanced equations.
+The difference between $\delta_5$ and $\delta_3$ is that $\delta_5$ includes a bias correction for the variance, while $\delta_3$ does not.
+In our simulations on the GEE case,
+the standard sandwich estimator regularly underestimated the variance, while  both our adjusted variance estimator, $V_{a}$, and that proposed by
+Mancl and DeRouen (2001), $V_{MD}$, appeared less biased in the balanced cases (see top section of Table~\ref{tab-vars}).
+In the more unbalanced cases (see bottom section of Table~\ref{tab-vars}), both $V_{a}$ and $V_{MD}$ appeared to overcorrect for bias in most cases,
+and this overcorrection in $V_a$ may be the source of the conservativeness of $\delta_5$.
+Further work is required on correcting the bias of the sandwich variance estimator in unbalanced data.
+For the balanced cases the advantage of $V_a$ over $V_{MD}$ is that it may be applied to other cases besides the GEE case.
+
+Although not listed in the tables, we included in our simulations
+a test comparing $T_s^{2}$ to $F_{1,K-p}$
+as has been used in the literature (see e.g., Lipsitz,et al. 1994).
+This test gave estimated sizes that were always less than the standard sandwich test ($\delta_1$), but at least as large as
+the 4 new tests
+($\delta_2,\delta_3,\delta_4,$ and $\delta_5$).
+As expected this test does reasonably well with balanced data but
+not with unbalanced data.
+For example, for Table~\ref{tab-clrs1} the 4 estimated sizes (to test $\beta_1=0$)  were
+.078 (Design~A, Case~1), .073 (Design~A, Case~4),
+.245 (Design~D, Case~1), and .248 (Design~D, Case~4).
+For insight into this,
+note the failure of that method to address the degrees of freedom differences in the parameters in Design~D,
+where $\beta_{1}$ is estimated from only 3 clusters,
+while $\beta_{2}$ is estimated from 39 clusters (see Fay, et al., 1998).
+The degrees of freedom estimate, $K-p$, does not properly account for this data structure
+and compares both the $T_s^{2}$ statistic for testing $\beta_1=0$ and the $T_{s}^{2}$ statistic for testing $\beta_2=0$ against  the same distribution, $F_{1,K-p}$.
+The complete simulation results of the tests comparing $T_s^{2}$ to $F_{1,K-p}$
+along with Splus functions that perform our adjustments and the Splus programs used to perform all the simulations are given at http://srab.cancer.gov/sandwich.
+
+\section*{Acknowledgements}
+
+We thank William Davis, Edward Korn, and the reviewers and editors  for helpful comments on earlier versions of this paper.
+
+\section*{References}
+
+\begin{description}
+
+
+
+%\item Binder, D.A. (1983). On the variances
+%of asymptotically normal estimators from complex surveys.
+%{\it International Statistics Review,} {\bf 51,} 279-292.
+%\item Breslow, N. (1990). Tests of hypotheses in overdispersed Poisson regression and other quasi-likelihood models. {\it Journal of the American
+%Statistical Association} {\bf 85,} 565-571.
+%\item Carroll, R.J. and Ruppert, D. (1988) {\it Transformation and
+%Weighting in Regression.} Chapman and Hall, London.
+\item Chesher, A., and Austin, G. (1991). The finite-sample distributions of heteroscedasticity robust Wald statistics. {\it Journal of Econometrics}
+{\bf 47,} 153-173.
+%\item Cushing, M.J., and MCGarvey, M.G. (1999). "Chapter 3: Covariance matrix estimation" in %{\it Generalized Method of Moments Estimation} M\'{a}ty\'{a}s, L. (editor). Cambridge University %Press, New York.
+%{\bf 47,} 153-173.
+%\item Davies, R.B. (1980). Distribution of a linear combination of %$\chi^{2}$ random variables.
+%{\it Journal of the Royal Statistical Society, Series C,}{ \bf 29,} 323-%333.
+%\item Davidian, M. and Carroll, R.J. (1987).
+%Variance function estimation. {\it
+%Journal of the American Statistical Association,}
+%{\bf 82,} 1079-1091.
+%\item Diggle, P.J., Liang, K-Y., and Zeger, S.L.
+%(1994). {\it Analysis of Longitudinal Data.}
+%Clarendon Press, Oxford.
+%\item Efron, B. (1982). {\it The Jackknife, the Bootstrap and Other Resampling Plans}. Society for Industrial and Applied Mathematics,
+%Philadelphia.
+\item Emrich, L.J., and Piedmonte, M.R. (1992). On Some Small
+Sample Properties of Generalized Estimating Equation Estimates for
+Multivariate Dichotomous Outcomes.
+{\it Journal of Statistical Computation and Simulation,}{\bf 41,} 19-29.
+\item Fai, A.H-T., and Cornelius, P.L. (1996). Approximate F-tests of multiple degree of freedom hypotheses in generalized least squares analyses of unbalanced split-plot experiments. {\it Journal of  Statistical Computation and  Simulation} {\bf 54}, 363-378.
+\item Fay, M.P., Freedman, L.S., Clifford, C.K., and Midthune, D.N. (1997).
+Effect of different types and amounts of fat on the development of mammary tumors in rodents: a review. {\it Cancer Research} {\bf 57}, 3979-3988.
+\item Fay, M.P., Graubard, B.I., Freedman, L.S., and Midthune, D.N. (1998).
+Conditional logistic regression with sandwich estimators: application to a meta-analysis. {\it Biometrics}, {\bf 54}, 195-208.
+\item Gail, M.H., Lubin, J.H., and Rubinstein, L.V. (1981).
+Likelihood calculations for matched case-control studies and survival studies with tied death times. {\it Biometrika}, {\bf 68}, 703-707.
+%\item Graybill, F.A. (1976) {\it Theory and Application of the Linear Model},
+%Wadsworth and Brooks/Cole, Pacific Grove, California.
+\item Gunsolley, Getchell, and Chinchilli (1995) Small Sample Characteristics of Generalized Estimating Equations. {\it
+Communications in Statistics: Simulation and Computation} {\bf 24,}
+869-878.
+%\item Graubard, B.I., and Korn, E.L. (1994)
+%Regression Analysis with Clustered Data. {\it Statistics in
+%Medicine} {\bf 13,} 509-522.
+\item Horton, N.J., and Lipsitz, S.R. (1999). Review of Software to Fit
+Generalized Estimating Equation Regression Models. {\it American Statistician} {\bf 53,} 160-169.
+%\item Horton, N.J., Bebchuk, J.D., Jones, C.L., Lipsitz, S.R., Catalano, P.J., Zahner, G.E.P., and Fitzmaurice, G.M. (1999). Goodness-of-fit for GEE: An %example with mental health service utilization. {\it Statistics
+%in Medicine} {\bf 18,} 213-222.
+%\item Imhof, J.P. (1961). Computing the distribution of quadratic forms %in normal variables. {\it Biometrika,}
+%{\bf 48,} 419-426.
+%\item Laird, N. M., and Ware, J.H. (1982).
+%Random-effects models for longitudinal data. {\it
+%Biometrics,}
+%{\bf 38,} 963-974.
+%\item Liang, K.Y. (1987). Extended Mantel-Haenszel
+%estimating procedure for multivariate logistic regression
+%models. {\it Biometrics, }{\bf 43,} 289-299.
+%\item Lehmann, E.L. (1999). {\it Elements of Large-Sample Theory}.
+%New York: Springer-Verlag.
+\item Liang, K.-Y. and Zeger, S.L. (1986). Longitudinal data analysis using
+generalized linear models. {\it Biometrika,} {\bf 73,} 13-22.
+\item Lin, D.Y., and Wei, L.J. (1989). The robust inference for the Cox proportional hazards model. {\it Journal of the  American Statistical Association} {\bf 84}, 1074-1078.
+\item Lipsitz, S.R., Fitzmaurice, G.M., Orav, E.J., and Laird,N.M. (1994).
+Performance of generalized estimating equations in practical situations.
+{\it Biometrics} {\bf 50,} 270-278.
+\item Lipsitz, S.R., and Ibrahim, J.G. (1999). A degrees-of-freedom approximation for a t-statistic with heterogeneous variance.
+{\it The Statistician} {\bf 48}, 495-506.
+%\item Lipsitz, S.T., Laird, N.M., and Harrington, D.P. (1990).
+%Using the jackknife to estimate the variance of regression estimators from repeated measures studies.
+%{\it Communications in Statistics- Theory and Methods} {\bf 19,} 821-845.
+%\item Lumley, T. and Heagerty, P. (1999). Weighted empirical adaptive variance estimators for %correlated data regression. {\it Journal of the Royal Statistical Society, Series~B} {\bf 61,} %459-477.
+\item Mancl, L.A., and DeRouen, T.A. (2001). A covariance estimator for GEE with improved small sample properties.
+{\it Biometrics} {\bf 57,} 126-134.
+%\item MacKinnon, J.G., and White, H. (1985). Some heteroskedasticity-consistent covariance matrix estimators with improved finite sample properties. {\it %Journal of Econometrics} {\bf 29,} 305-325.
+%\item McCullagh, P. and Nelder, J.A. (1989) {\it Generalized Linear %Models,
+%second edition.} Chapman and Hall, London.
+%\item Neuhaus, J.M. (1993). Estimation efficiency and
+%tests of covariate effects with clustered binary data.
+%{\it Biometrics,} {\bf 49,} 989-996.
+%\item Paik, M. C. (1988). Repeated measurement analysis for nonnormal data in small samples. {\it Communications in Statistics, Simulations} {\bf 17,} 115-%1171.
+\item Preisser, J.S., and Qaqish, B.F. (1999). Robust regression for
+clustered data with application to binary responses.
+{\it Biometrics,} {\bf 55,} 574-579.
+%\item Royal, R. M. (1986). Model robust confidence
+%intervals using maximum likelihood estimators.
+%{\it International Statistical Review, }{\bf 54,} 221-226.
+%\item Qu, Y., Piedmonte, M.R., and Williams, G.W. (1994).
+%Small sample validity of latent variable models for correlated binary data. {\it Communications in Statistics, Simulations} {\bf 23,} 243-269.
+\item Searle, S.R. (1982). {\it Matrix Algebra useful for Statistics}
+John Wiley and Sons, New York.
+%\item Sharples, K. and Breslow, N. (1992). Regression Analysis of Correlated Binary Data: Some %Small Sample Results for the Estimating Equation Approach.
+%{\it Journal of Statistical Computation and Simulation,}{\bf 42,} 1-20.
+%\item Therneau, T.M. (1997). Extending the Cox Model. {\it in Proceedings of the First
+%Seattle Symposium in Biostatistics: Survival Analysis} editors: Lin, D.Y. and Fleming, T.R.,
+%Springer, New York. (see also Technical Report \#58 at %http://www.mayo.edu/hsr/main/techrpt.html).
+%\item White, H. (1982). Maximum likelihood estimation of
+%misspecified models. {\it Econometrics,} {\bf 50,} 1-25.
+%\item Zeger, S.L. and Liang, K.-Y. (1986).
+%Longitudinal Data Analysis for Discrete and Continuous
+%Outcomes. {\it Biometrics,} {\bf 42,} 121-130.
+%\item Zeger, S.L., Liang, K-Y, and Albert, P.S. (1988).
+%Models for longitudinal data: a generalized estimating
+%equation approach. {\it Biometrics,} {\bf 44, } 1049-1060.
+
+\end{description}
+
+
+
+\appendix
+
+\section{Details of Degrees of Freedom Approximation}
+\label{app-quad}
+
+Using approximation~(\ref{eq:betahat.minus.beta}), we write
+$\left\{ C^{T} \left( \widehat{\beta} - \beta_{0} \right) \right\}^{2}  \approx U^{T} B_{0} U$, where $B_{0} = F V_{m} C C^{T} V_{m} F^{T}$,
+and $F^{T}=[I_{p} \; \; \cdots \; \; I_{p}]$.
+Rewrite $C^{T} V_{a} C$ as
+\begin{eqnarray*}
+C^{T} V_{a} C
+ =
+\sum_{i=1}^{K}  C^{T} V_{m} \left( H_{i} \widehat{U}_{i} \widehat{U}^{T}_{i} H_{i}  \right) V_{m} C \nonumber
+ =  \sum_{i=1}^{K} \widehat{U}_{i}^{T}
+\left(
+H_{i} V_{m} C C^{T} V_{m} H_{i} \right)  \widehat{U}_{i},
+%= \widehat{U}^{T}  M \widehat{U}
+\end{eqnarray*}
+%where  $M$ is a $pK \times pK$ block diagonal matrix with $i$th block equal to
+%$H_{i} V_{m} C C^{T} V_{m} H_{i}$.
+where the second equality uses the fact that $C^{T} V_{m} H_{i} \widehat{U}_{i}$ is a scalar; this is why we require
+$C$ to be a vector. We rewrite this as $C^{T} V_{a} C  = \widehat{U}^{T}  M \widehat{U}$,
+where  $M$ is a $pK \times pK$ block diagonal matrix with $i$th block equal to
+$H_{i} V_{m} C C^{T} V_{m} H_{i}$.
+We combine the Taylor series approximations for the $\widehat{U}_{i}$ to get  $\widehat{U} \approx G U$, where $G = I_{pK} - \widehat{\Omega} V_{m} F^{T}$ and $\widehat{\Omega}^{T} = [ \widehat{\Omega}_{1} \;\; \cdots \; \; \widehat{\Omega}_{K}]$. Thus,  $C^{T} V_{a} C \approx {U}^{T} B_{1} U$, where $B_{1}= G^{T}  M G$.
+
+Now consider the 3 conditions:
+%\begin{enumerate}
+\begin{description}
+\item [(1) $\sigma^{-2} U^{T} B_{0} U \stackrel{\cdot}{\sim} \chi^{2}_{1}$:] Assume $C^{T} V_{m}  {U}_{i}$ has  mean 0 and unknown variance  $\sigma_{i}^{2}$ (where we allow $\sigma_{i}^{2}=0$ for some $i$),
+that the $C^{T} V_{m}  {U}_{i}$
+are independent, and that
+the approximation~\ref{eq:betahat.minus.beta}
+holds. Provided some regularity conditions are true, by
+the Liapunouv central limit theorem
+%(see e.g. Lehmann, 1999, p. 101)
+$\sigma^{-1} C^{T} \left( \widehat{\beta} - \beta_{0} \right)  \rightarrow N(0,1)$
+as $K \rightarrow \infty$, where
+$\sigma^{2} = \sum_{i=1}^{K} \sigma_{i}^{2}$. Thus,
+$\sigma^{-2}  \left\{ C^{T} \left( \widehat{\beta} - \beta_{0}
+\right) \right\}^{2}$  is asymptotically chi-squared with 1 degree of
+freedom.
+\item [(2) $\sigma^{-2} d U^{T} B_{1} U \stackrel{\cdot}{\sim} \chi^{2}_{d}$:]
+Assume $U$ is distributed normal with mean 0 and variance
+$\vus =$ block diagonal $\left( \vus_{1}, \ldots, \vus_{K} \right)$.
+Under these assumptions,  $U^{T} B_{1} U$ has a distribution described by a weighted sum of chi square random variables;
+however, we approximate its distribution with a (much simpler) Gamma distribution with the same mean and variance, i.e.,
+with mean equal to $\mbox{trace}(\vus B_{1})$ and variance equal to $2 \mbox{trace}( \vus B_{1} \vus B_{1} )$ (see Searle, 1982, p. 355).
+Since $U^{T} B_{1} U$ is an approximately unbiased estimator of $\sigma^{2}$ we estimate $\sigma^{2}$ with
+$\mbox{trace}(\vus B_{1})$, so that  $\sigma^{-2} U^{T} B_{1} U$ is  approximately Gamma with mean 1 and variance
+$2 \mbox{trace}( \vus B_{1} \vus B_{1} )/ \left\{ \mbox{trace}(\vus B_{1}) \right\}^{-2}$ or equivalently
+$\sigma^{-2} d U^{T} B_{1} U \stackrel{\cdot}{\sim} \chi^{2}_{d}$ where $d = \left\{ \mbox{trace}(\vus B_{1}) \right\}^{2}/
+\mbox{trace}( \vus B_{1} \vus B_{1} )$.
+\item [(3) $U^{T} B_{0} U$ and $U^{T} B_{1} U$ are independent:] Assume that $U$ is normal with mean 0 and variance $\vus$, with
+$\mbox{rank}(\vus)=pK$. Under correct model specification, i.e., $\vus_{i} \approx c \widehat{\Omega}_{i}$ for all $i$.  Then $B_{0} \vus B_{1} \approx 0$ and  $U^{T} B_{0} U$ and $U^{T} B_{1} U$ are approximately independent. (See Searle, 1982, p.356).
+%\end{enumerate}
+\end{description}
+
+
+\section{Details: Normal Model with Identical Designs}
+\label{sec-details.norm}
+
+Refer to structure defined in section~\ref{sec-norm.bal}.
+Let $Z_{i} = K^{-1/2} \sigma^{-1} \left\{  C^{T} (X^{T} X)^{-1} X^{T} Y_{i}  -C^{T} \beta_0 \right\}$
+where
+$\sigma^{2} =\mbox{var}\left\{ C^{T} \left( \widehat{\beta} - \beta_{0} \right) \right\}
+= K^{-1} C^{T} (X^{T} X)^{-1} X^{T} \Sigma X (X^{T} X)^{-1}  C$.
+Under the null hypothesis assumptions of the model, the $Z_{i}$ are independent standard normal
+random variables.
+Then, $K^{-1} \sum_{i=1}^{K} Z_{i}=   \bar{Z}  = K^{-1/2} \sigma^{-1} C^{T} ( \widehat{\beta} - \beta_0)$, and
+$\sum_{i=1}^{K} (Z_{i} - \bar{Z} )^{2}  =  \sigma^{-2} K C^{T} V_{S} C
+ =  \sigma^{-2} (K-1) C^{T} V_{a} C$.
+The last step comes because $H_{i} = I_{p} \left\{ K/(K-1) \right\}^{1/2}$ for all $i$.
+Thus, under the null hypothesis,
+$T_{a} = \sqrt{K} \bar{Z} \left\{ (K-1)^{-1}  \sum_{i=1}^{K} (Z_{i} - \bar{Z} )^{2}  \right\}^{-1/2}$
+and is distributed $t_{K-1}$ by the standard derivation of the t-test, and $T_{a}^{2}$ is distributed
+$F_{1,K-1}$.
+%By using equation~\ref{eq:traces} and much matrix algebra (including the technique of applying to each block of a set of %diagonal blocks of a matrix the theorem that $\mbox{trace}(AB)=\mbox{trace}(BA)$ for any matrices $A$ and $B$ for which %$AB$ and $BA$ are defined), we can show $\tilde{d}$ and $\tilde{d}_{H}$ both equal $K-1$,  while $\widehat{d}$ and %$\widehat{d}_{H}$
+%are both distributed the same as
+%\begin{eqnarray*}
+%\frac{R }{1 + \frac{R -1}{(K-1)^{2}} }
+%\hspace*{.75in} \mbox{ where } \hspace*{.25in} R = \frac{ \left\{ \sum_{i=1}^{K} (Z_{i} - \bar{Z} )^{2} \right\}^{2} }{
+%\sum_{i=1}^{K} (Z_{i} - \bar{Z} )^{4} }.
+%\end{eqnarray*}
+All proposed estimators of $d$ use equation~\ref{eq:traces} with different estimators of $\vus_{i}$ and different values of $M$ (for $\widehat{d}$ and $\tilde{d}$ the value $H_{i}$ is set to $I_{p}$ in the definition of $M$). Let $\dot{\vus}_{i}$ ($\dot{\vus}$) be an arbitrary estimator of $\vus_{i}$ ($\vus$) and $M_{i}$ be an arbitrary block diagonal element of $M$.
+Then because the $\widehat{\Omega}_{i} =\widehat{\phi} X^{T} X$ are all equal, $\mbox{trace}(\dot{\vus} B_{1} ) = \left\{  (K- 1)/K \right\} \sum_{i=1}^{K} \mbox{trace}(\dot{\vus}_{i}M_{i} )$
+and $\mbox{trace}(\dot{\vus} B_{1}\dot{\vus} B_{1}) = \left\{ (K-2)/K \right\} \sum_{i=1}^{K} \mbox{trace}(\dot{\vus}_{i} M_{i} \dot{\vus}_{i} M_{i}  )
++ K^{-2}  \sum_{i=1}^{K}  \sum_{j=1}^{K}  \mbox{trace}(\dot{\vus}_{i}M_{i}   \dot{\vus}_{j}M_{j})$.
+To simplify these expressions we use  the
+theorem that $\mbox{trace}(AB)=\mbox{trace}(BA)$ for any matrices $A$ and $B$ for which
+$AB$ and $BA$ are defined, so that the traces may be written as scalars.
+Then we can show equation~\ref{eq:traces} gives $K-1$ for both   $\tilde{d}$ and $\tilde{d}_{H}$,
+while $\widehat{d}$ and $\widehat{d}_{H}$
+may both be written as
+\begin{eqnarray*}
+\frac{R }{1 + \frac{R -1}{(K-1)^{2}} }
+\hspace*{.75in} \mbox{ where } \hspace*{.25in} R = \frac{ \left\{ \sum_{i=1}^{K} (Z_{i} - \bar{Z} )^{2} \right\}^{2} }{
+\sum_{i=1}^{K} (Z_{i} - \bar{Z} )^{4} },
+\end{eqnarray*}
+and the $Z_{i}$ are the same independent standard normal random variables as in the previous expression for $T_{a}$.
+
+
+
+\section{Notation for Cox Proportional Hazards Model}
+\label{app-ph.notation}
+
+%This notation follows  Therneau (1997) and
+We use standard notation for counting processes, so that the notation
+$Y_{i}, Z_{i}$, $ X_{i}$, and $\delta_{i}$ is different in this section than in
+the rest of the paper.
+Let $X_{1},\ldots,X_{K}$ be the time until failure or right-censoring,
+with $\delta_{i}=1$ when $X_{i}$ represents a failure and $\delta_{i}=0$
+otherwise. Let $Z_{i}(t)$ be the covariate vector for the $i$th observation
+observed at time $t$.
+Then
+$U_{i}^{\bullet}  =   \delta_{i} \left\{ Z_{i}(X_{i}) - \bar{Z}(\beta,X_{i}) \right\}$
+where
+$\bar{Z}(\beta,t) = \left[ \sum_{i=1}^{K} Y_{i}(t) Z_{i}(t) \exp \left\{ \beta' Z_{i}(t) \right\} \right]
+/ \left[ \sum_{j=1}^{K} Y_{j}(t) \exp \left\{ \beta' Z_{j}(t) \right\} \right]$
+and here $Y_{i}(t) =1$ if $X_{i} \geq t$ and 0 otherwise.
+Further, \[U_{i}^{\circ} =  - \sum_{j=1}^{K} \left[ \delta_{j} Y_{i}(X_{j}) \exp \left\{ \beta' Z_{i}(X_{j}) \right\}
+\left\{ Z_{i}(X_{j}) - \bar{Z}(\beta,X_{j}) \right\}
+\right] / \left[
+\sum_{h=1}^{K} Y_{h}(X_{j}) \exp \left\{ \beta' Z_{h}(X_{j}) \right\} \right], \mbox{and} \]
+%$\Omega_{i}^{\bullet}
+\[ \frac{ - \partial U_{i}^{\bullet}}{\partial \beta} = \delta_{i}
+\left(
+\left[ \sum_{j=1}^{K} Y_{j}(X_{i}) \exp \left\{ \beta' Z_{j}(X_{i}) \right\} \left\{ Z_{j}(X_{i}) - \bar{Z}(\beta,X_{i}) \right\}^{\otimes 2}
+\right] / \left[
+\sum_{h=1}^{K} Y_{h}(X_{i}) \exp \left\{ \beta' Z_{h}(X_{i}) \right\} \right]
+\right), \]
+where $A^{\otimes 2} = AA^{T}$, for any vector, $A$.
+
+
+%\clearpage
+\newpage
+
+\begin{table}
+
+\caption{ \label{tab-poisson} Simulations for Poisson GEE: Proportion Rejected at $\alpha=.05$ level (average length of Confidence Intervals) for 1000
+simulations }
+\vspace*{1em}
+\begin{tabular}{ccccccc}
+ && & \multicolumn{2}{c}{One Treatment} & \multicolumn{2}{c}{Both Treatments} \\
+ && Test & \multicolumn{2}{c}{Per Cluster} & \multicolumn{2}{c}{for each Cluster} \\
+ && Distribution & \multicolumn{2}{c}{$R_{i}=$Exchangeable} & \multicolumn{2}{c}{$R_{i}=$Independence} \\
+Test & Variance & (df) & $\tau=0^{*}$ & $\tau=1/2$ & $\tau=0$ & $\tau=1/2$ \\ \hline
+$\delta_m$ & $V_{m}$ & $\chi^{2}(1)$ &  .090 (.079) & .091 (.424) & .043 (.060) & .330 (.115) \\
+$\delta_1$ & $V_{s}$ & $\chi^{2}(1)$ & .103 (.079) & .089 (.421) & .075 (.058) & .074 (.227) \\
+$\delta_2$ & $V_{s}$ & $F(1,\widehat{d})$ & .052 (.097) & .040 (.555) & .028 (.071) & .029 (.325) \\
+$\delta_3$ & $V_{s}$ & $F(1,\tilde{d})$ & .066 (.087) &.067 (.451) &.053 (.062) & .055 (.244) \\
+$\delta_4$ & $V_{a}$ & $F(1,\widehat{d}_{H})$ & .042 (.101) & .039 (.570) & .022 (.073) & .024 (.335) \\
+$\delta_5$ & $V_{a}$ & $F(1,\tilde{d}_{H})$ & .059 (.091) & .064 (.463) & .046 (.064) & .048 (.251) \\
+$\delta_6$ & $V_{MD}$ & $F(1,K-p)$ & .041 (.098) & .047 (.501) & .043 (.066) & .041 (.258) \\ \hline
+\end{tabular}
+
+$^{*}$ For this column, 991 out of 1000 converged (see http://srab.cancer.gov/sandwich for a non-converging data set); results relate to those 991 simulations. All other columns had 1000 converged simulations.
+
+{\em
+Data are simulated by
+$Y_{ij} \sim Poisson( \mu_{ij} ), i=1,\ldots,20 ; j=1,\ldots,n_{i1}+n_{i2}$ where
+$\mu_{ij} = \exp \left(\log(10)+ x_{ij} b_{ij} \right),$
+$x_{ij}=1$ for $j\leq n_{i1}$, $x_{ij}=-1$ for $j > n_{i1}$, and $b_{ij}$ are independent pseudo-normal
+random variates with mean 0 and standard deviation, $\tau$.
+All models of means  are $\mu_{ij}= \exp \left( \beta_{0} + \beta_{1} x_{ij} \right)$. We test whether $\beta_{1}=0$ and the average length of confidence intervals are for $\beta_1$ only.
+``Both  treatments for each cluster'' is
+ $n_{ia}=\mbox{ceiling}(N_{ia})$, for $a=1,2$, where
+$N_{ia}$ is distributed pseudo-Gamma with mean 10 and variance 20, and
+ $ceiling(X)$ gives the smallest integer greater than or equal to $X$.
+``One treatment per cluster'' uses the
+same method for generating the $n_{ia}$ then
+sets $n_{i2}=0$ for $i\leq 10$ and sets $n_{i1}=0$ for
+$i > 10$.
+}
+\end{table}
+
+
+%\clearpage
+\newpage
+
+
+\begin{table}
+
+\caption{ \label{tab-preisser} Simulations for Logistic Independence Estimating Equations derived from GUIDE data: Proportion Rejected at $\alpha=.05$ level (average length of Confidence Intervals) for 1000
+simulations }
+\vspace*{1em}
+\begin{tabular}{cccccccc}
+ && Test & Model  & Model & Model & Model & Model \\
+ && Distn & without & without & without & without & without \\
+Test & Var & (df) & FEMALE &  AGE & DAYACC & SEVERE & TOILET \\ \hline
+%& \multicolumn{4}{c}{ $R_{i}=$ independence } \\ \hline
+$\delta_m$ & $V_{m}$ & $\chi^{2}(1)$ &   .048 (2.58) & .052 (2.38) & .049 (.258) & .051 (1.42) & .055 (.350) \\
+$\delta_1$ & $V_{s}$ & $\chi^{2}(1)$ & .078 (2.41)  & .067 (2.32) & .076 (.242)& .062 (1.36) & .080 (.330) \\
+$\delta_2$ & $V_{s}$ & $F(1,\widehat{d})$ & .038 (3.06) & .039 (2.68) & .044 (.286) & .029 (1.62) & .040 (.405) \\
+$\delta_3$ & $V_{s}$ & $F(1,\tilde{d})$ & .051 (2.70) & .057 (2.46) &.058 (.269) &  .049 (1.46) & .056 (.375) \\
+$\delta_4$ & $V_{a}$ & $F(1,\widehat{d}_{H})$ & .018 (3.47)  & .018 (3.06) & .031 (.329) & .010 (1.87) & .016 (.636) \\
+$\delta_5$ & $V_{a}$ & $F(1,\tilde{d}_{H})$ & .026 (3.02) & .029 (2.74) & .037 (.296) & .017 (1.69)  & .028 (.551) \\
+$\delta_6$ & $V_{MD}$ & $F(1,K-p)$ & .042 (2.87) & .039 (2.63) & .040 (.289) &  .033 (1.56) & .042 (.408) \\ \hline
+\end{tabular}
+
+\end{table}
+
+\newpage
+
+\begin{table}
+
+\caption{ \label{tab-vars} Comparison of Simulated Variance Estimators }
+\vspace*{1em}
+\begin{tabular}{lccccc}
+ & Sample & Mean & Mean & Mean & Mean \\
+ & Variance & of & of & of & of \\
+ & of $\widehat{\beta}_{i}$ & $V_{m}$ & $V_{s}$ & $V_{MD}$ & $V_{a}$ \\ \hline
+\multicolumn{6}{c}{Poisson GEE (Table~\ref{tab-poisson})}  \\
+$R_{i}$=Exchangeable, $\tau=0^{*}$
+%& 0.000507  & 0.000429  & 0.000421   & 0.000562    & 0.000449    \\
+& 0.00051  & 0.00043  & 0.00042   & {\bf 0.00056 }    &  0.00045    \\
+$R_{i}$=Exchangeable, $\tau=1/2$
+%& 0.014095  & 0.012374  & 0.012013   & 0.014823    & 0.012644    \\
+& 0.01410  & 0.01237  & 0.01201   & {\bf  0.01482 }   & 0.01264    \\
+$R_{i}$=Independence, $\tau=0$
+%& 0.000226  & 0.000238  & 0.000225   & 0.000255    & 0.000238    \\
+& 0.00023  & 0.00024  & {\bf 0.00023 }  & 0.00025    & 0.00024    \\
+$R_{i}$=Independence, $\tau=1/2$
+%& 0.004048  & 0.000873  & 0.003760   & 0.004241    & 0.003975    \\
+& 0.00405  & 0.00087  & 0.00376   & 0.00424    & {\bf  0.00398}    \\
+\multicolumn{6}{c}{Logistic Independence Estimating Equations (Table~\ref{tab-preisser})} \\
+Model without FEMALE
+%& 0.470654  & 0.437368  & 0.392343   & 0.517743    & 0.479538    \\
+& 0.47065  & 0.43737  & 0.39234   & 0.51774    & {\bf 0.47954}    \\
+Model without AGE
+%&0.409684  & 0.375112  & 0.356595   & 0.427003    & 0.440904    \\
+& 0.40968  & 0.37511  & 0.35659   & {\bf 0.42700}    & 0.44090    \\
+Model without DAYACC
+%& 0.004663  & 0.004342  & 0.003896   & 0.005208    & 0.004550    \\
+& 0.00466  & 0.00434  & 0.00390   & 0.00521    & {\bf 0.00455}    \\
+Model without SEVERE
+%& 0.124092  & 0.131857  & 0.122740   & 0.150416    & 0.162230    \\
+& 0.12409  & 0.13186  & {\bf 0.12274}   & 0.15042    & 0.16223    \\
+Model without TOILET
+%& 0.008978  & 0.008061  & 0.007321   & 0.010497    & 0.011008    \\
+& 0.00898  & {\bf 0.00806}  & 0.00732   & 0.01050    & 0.01101    \\
+\end{tabular}
+
+$^{*}$ For this row, 991 out of 1000 converged; statistics calculated from only those 991 simulations. All other rows had 1000 converged simulations.
+
+The bold value in each row represents the closest mean to the sample
+variance of $\widehat{\beta}_{i}$.
+
+\end{table}
+
+
+
+
+
+
+
+
+%\clearpage
+\newpage
+
+\begin{table}
+
+\caption{ \label{tab-clrs1} Simulations for Conditional Logistic Regression: Proportion Rejected at $\alpha=.05$ level (average length of Confidence Intervals) for 1000
+simulations }
+\vspace*{1em}
+\begin{tabular}{ccccccc}
+&  & Test & Design~A & Design~A & Design~D & Design~D \\
+Test & Var & Distn (df) & Case~1 & Case~4 & Case~1 & Case~4 \\ \hline
+$\delta_m$ & $V_{m}$ & $\chi^{2}(1)$ & .049 (.577) & .430 (.601) & .027 (2.60) & .345 (2.80) \\
+$\delta_1$ & $V_{s}$ & $\chi^{2}(1)$ & .098 (.534) & .090 (1.36) & .252 (1.85) & .253 (4.02) \\
+$\delta_2$ & $V_{s}$ & $F(1,\widehat{d})$ & .042 (.681) & .045 (1.74) & .044 (5.35) & .054 (12.00) \\
+$\delta_3$ & $V_{s}$ & $F(1,\tilde{d})$ & .072 (.590) & .065 (1.51) & .047 (4.45) & .038 (10.19)  \\
+$\delta_4$ & $V_{a}$ & $F(1,\widehat{d}_{H})$ & .033 (.708) & .038 (1.82) & .025 (6.92) & .030 (16.33) \\
+$\delta_5$ & $V_{a}$ & $F(1,\tilde{d}_{H})$ & .066 (.613) & .056 (1.57) & .021 (5.77) & .019 (13.79)
+\end{tabular}
+
+{\it All simulations test whether $\beta_{1}=0$, and average confidence interval lengths are for $\beta_1$ only. In Design~A $\beta_{1}$ is estimated from 15
+clusters, while in  Design~D  $\beta_{1}$  is estimated from   3
+clusters. For Case~1 the effects for $\beta_{1}$ are fixed, while for Case~4 these effects are random.}
+
+\end{table}
+
+
+%\clearpage
+\newpage
+
+\begin{table}
+
+\caption{ \label{tab-ph} Simulations for Cox Regression: Proportion Rejected at $\alpha=.05$ level (average length of Confidence Intervals) for 1000
+simulations }
+\vspace*{1em}
+\begin{tabular}{ccccccc}
+    & \multicolumn{2}{c}{Proportional Hazards}  & \multicolumn{2}{c}{Model 10} & \multicolumn{2}{c}{Model 11} \\
+Test  & $K=20$ & $K=50$ & $K=20$ & $K=50$ &  $K=20$ & $K=50$ \\ \hline
+$\delta_m$  & .051 (1.13) & .042 (.614) & .180 (1.71) & .195 (1.02) & .104 (1.13) & .073 (.614) \\
+$\delta_1$ & .103 (0.99) & .063 (.567) & .119 (2.26) & .079 (1.47) & .137 (1.01) & .091 (.593)  \\
+$\delta_2$  & .055 (1.33) & .037 (.672) & .047 (3.29) & .049 (1.67) & .076 (1.38) & .049 (.729) \\
+$\delta_3$  & .051 (1.25) & .043 (.625) & .080 (2.89) & .063 (1.59) & .089 (1.28) & .066 (.656) \\
+$\delta_4$  & .038 (1.48) & .032 (.715) & .039 (3.69) & .044 (1.72) &  .059 (1.55) & .039 (.780)  \\
+$\delta_5$  &  .043 (1.37) & .037 (.652) & .068 (3.13) & .059 (1.63) &
+.073 (1.40) & .054 (.686)
+\end{tabular}
+
+{\em
+All simulations modeled the hazard proportional to $\exp( \beta_{1} z_{1} + \beta_{2} z_{2} )$ and
+tested whether $\beta_{1}=0$ or not.
+True models with $t=$time to event:  (proportional hazards)  $t = \exp( z_2 ) \epsilon_2$; (model~10) $t= \exp \left( -.5 z_{2} - z_{1}^{2} + .5 \epsilon_{1} \right)$; (model~11) $t = \exp \left( -.5 z_{2} \right) + .5 \epsilon_{1}$; where $z_{1}, z_{2},$ and  $\epsilon_{1}$ are independent standard normal pseudo-random variables (p-r.v.), with $z_{1}$ and $z_{2}$
+truncated at $\pm 5$, and  $\epsilon_{2}$ is a standard exponential p-r.v.
+}
+
+\end{table}
+
+
+\end{document}
+
+
+% This is the cox regression table with var and Test Distn columns
+\begin{table}
+
+\caption{ \label{tab-ph} Simulations for Cox Regression: Proportion Rejected at $\alpha=.05$ level (average length of Confidence Intervals) for 1000
+simulations }
+\vspace*{1em}
+\begin{tabular}{ccccccccc}
+& & Test & \\
+   & & Distn & \multicolumn{2}{c}{Proportional Hazards}  & \multicolumn{2}{c}{Model 10} & \multicolumn{2}{c}{Model 11} \\
+Test & Var & (df) & $K=20$ & $K=50$ & $K=20$ & $K=50$ &  $K=20$ & $K=50$ \\ \hline
+$\delta_m$ & $V_{m}$ & $\chi^{2}(1)$  & .051 (1.13) & .042 (.614) & .180 (1.71) & .195 (1.02) & .104 (1.13) & .073 (.614) \\
+$\delta_1$ & $V_{s}$ &  $\chi^{2}(1)$ & .103 (0.99) & .063 (.567) & .119 (2.26) & .079 (1.47) & .137 (1.01) & .091 (.593)  \\
+$\delta_2$ & $V_{s}$ & $F(1,\widehat{d})$ & .055 (1.33) & .037 (.672) & .047 (3.29) & .049 (1.67) & .076 (1.38) & .049 (.729) \\
+$\delta_3$ & $V_{s}$ & $F(1,\tilde{d})$ & .051 (1.25) & .043 (.625) & .080 (2.89) & .063 (1.59) & .089 (1.28) & .066 (.656) \\
+$\delta_4$ & $V_{a}$ & $F(1,\widehat{d}_{H})$ & .038 (1.48) & .032 (.715) & .039 (3.69) & .044 (1.72) &  .059 (1.55) & .039 (.780)  \\
+$\delta_5$ & $V_{a}$  & $F(1,\tilde{d}_{H})$ &  .043 (1.37) & .037 (.652) & .068 (3.13) & .059 (1.63) &
+.073 (1.40) & .054 (.686)
+\end{tabular}
+
+{\em
+All simulations modeled the hazard proportional to $\exp( \beta_{1} z_{1} + \beta_{2} z_{2} )$ and
+tested whether $\beta_{1}=0$ or not.
+True models with $t=$time to event:  (proportional hazards)  $t = \exp( z_2 ) \epsilon_2$; (model~10) $t= \exp \left( -.5 z_{2} - z_{1}^{2} + .5 \epsilon_{1} \right)$; (model~11) $t = \exp \left( -.5 z_{2} \right) + .5 \epsilon_{1}$; where $z_{1}, z_{2},$ and  $\epsilon_{1}$ are independent standard normal pseudo-random variables (p-r.v.), with $z_{1}$ and $z_{2}$
+truncated at $\pm 5$, and  $\epsilon_{2}$ is a standard exponential p-r.v.
+}
+
+\end{table}

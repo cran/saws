@@ -1,0 +1,16 @@
+
+citEntry(entry="Article",
+         title = "Small-Sample Adjustments for Wald-Type Tests Using Sandwich Estimators",
+         author = personList(as.person("Michael P. Fay"),
+                             as.person("Barry I. Graubard")), 
+         journal      = "Biometrics",
+         year         = "2001",
+         volume       = "57",
+         number       = "",  
+         pages        = "1198--1206",
+         
+         textVersion =
+         paste("Fay, M.P., and Graubard, B.I. (2001). Small-Sample Adjustments for Wald-Type Tests Using Sandwich Estimators", 
+               "Biometrics 57: 1198-1206"),
+         header = "To cite 'saws' package use the following reference:"
+)

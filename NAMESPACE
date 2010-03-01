@@ -1,0 +1,11 @@
+
+export(saws,mgee,
+    dfCalc,
+    PsiHatCalc,
+    PsiTildeCalc,
+    sawsCalc,
+    clogistCalc,
+    clogistLoglike,
+    clogistInfo,lmfitSaws)
+
+S3method(print, saws)
