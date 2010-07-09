@@ -2,6 +2,12 @@
 function(Psi,u,omega,H,test,vm){
         K<-dim(u)[[1]]
         p<-dim(u)[[2]]
+        ## July 9, 2010: fix bug when p=1
+        ## Psi is treated as vector unless specifically make it an array
+        ## if p>1, was already an array
+        if (p==1){
+            Psi<-array(Psi,c(K,p,p))
+        }
         if (is.vector(test)){
             r<-1
             test<-matrix(test,1,length(test))

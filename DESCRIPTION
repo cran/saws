@@ -2,8 +2,8 @@ Package: saws
 Type: Package
 Title: Small-Sample Adjustments for Wald tests Using Sandwich
         Estimators
-Version: 0.9-3.1
-Date: 2010-03-01
+Version: 0.9-3.3
+Date: 2010-07-09
 Author: Michael Fay
 Maintainer: Michael Fay <mfay@niaid.nih.gov>
 Description: Tests coefficients with sandwich estimator of variance and
@@ -12,6 +12,6 @@ Description: Tests coefficients with sandwich estimator of variance and
 Depends: R (>= 2.6.0), gee, survival, stats
 Suggests: MASS
 License: GPL (>= 2)
-Packaged: 2010-03-01 15:59:35 UTC; faym
+Packaged: 2010-07-12 20:57:42 UTC; faym
 Repository: CRAN
-Date/Publication: 2010-03-01 19:27:09
+Date/Publication: 2010-07-24 20:43:32
