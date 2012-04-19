@@ -10,8 +10,8 @@ Regression types supported are gee, cox regression, and conditional logistic reg
 \tabular{ll}{
 Package: \tab saws\cr
 Type: \tab Package\cr
-Version: \tab 0.9-1\cr
-Date: \tab 2007-10-30\cr
+Version: \tab 0.9-5.3\cr
+Date: \tab 2012-04-19\cr
 License: \tab GPL-2 or greater \cr
 }
 The main function of this package is \code{\link{saws}}, which takes output from some regression models

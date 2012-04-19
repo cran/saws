@@ -1,9 +1,9 @@
 `print.saws` <-
 function (x, digits = NULL, ...) 
 {
-    if (is.null(digits)) 
+    if (is.null(digits)){ 
         digits <- options()$digits
-    else options(digits = digits)
+    } else options(digits = digits)
     cat("\n", "SAWS: Small sample Adjusted Wald-type test using Sandwich variance")
     cat("\n")
     cat("\nOriginal Call:\n")
@@ -25,7 +25,13 @@ function (x, digits = NULL, ...)
 
         
     r<-dim(x$test)[[1]]
-    p<-length(x$coefficients)
+    ## remember if x$test is r X p, then length(coef)=r
+    ## and x$coefficients = t(test) %*% beta
+    ## where beta=original coefficients
+    ## so lenght(x$coefficients)= r
+    ## previously I had, p<-length(x$coefficients)
+    ## Now (April 19, 2012) it is corrected
+    p<-dim(x$test)[[2]]
     output<-matrix(NA,r,4)
     output[,1]<-x$coefficients
     output[,2:3]<-x$conf.int
@@ -42,9 +48,12 @@ function (x, digits = NULL, ...)
         cat("\n")
     } else {
         cat("\n","Test Matrix:")
-        cat(x$test)
+        cat("\n")
+        print(x$test)
         cat("\n","beta0:")
+        cat("\n")
         cat(x$beta0)
+        cat("\n")
         print(output)
         cat("--- p-values and confidence limits associated with: test %*% (Estimate-beta0)=0")    
     }

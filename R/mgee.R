@@ -6,7 +6,8 @@ function (formula = formula(data), id = id, data = parent.frame(),
 {
     message("Beginning Cgee S-function, @(#) geeformula.q 4.13 98/01/27")
     call <- match.call()
-    m <- match.call(expand = FALSE)
+    ## MF: changed expand to expand.dots
+    m<-match.call(expand.dots=FALSE)
     m$R <- m$b <- m$tol <- m$maxiter <- m$link <- m$varfun <- m$corstr <- m$Mv <- m$silent <- m$contrasts <- m$family <- m$scale.fix <- m$scale.value <- m$v4.4compat <- NULL
     if (is.null(m$id)) 
         m$id <- as.name("id")
@@ -55,7 +56,8 @@ function (formula = formula(data), id = id, data = parent.frame(),
         print(beta)
     } else {
         message("running glm to get initial regression estimate")
-        mm <- match.call(expand = FALSE)
+        ## MF: changed expand=FALSE to expand.dots=FALSE
+        mm<-match.call(expand.dots=FALSE)
         mm$R <- mm$b <- mm$tol <- mm$maxiter <- mm$link <- mm$varfun <- mm$corstr <- mm$Mv <- mm$silent <- mm$contrasts <- mm$scale.fix <- mm$scale.value <- mm$id <- NULL
         mm[[1]] <- as.name("glm")
         beta <- eval(mm, parent.frame())$coef
