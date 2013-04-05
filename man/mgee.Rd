@@ -3,10 +3,9 @@
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{ Modified gee function to output extra objects for saws }
 \description{
-This is just the \code{\link[gee]{gee}}  function from the \code{gee} package
-with extra lines added at the end to create a score matrix 
+This function calls the \code{\link[gee]{gee}}  function from the \code{gee} package, then applies the \code{\link{geeUOmega}} function to it to create a score matrix 
 (i.e., estimating equation) and information array (i.e., minus the derivative of the estimating equation).
-Since the code is the same (except the additional lines) all help for \code{\link[gee]{gee}} applies to \code{mgee}.
+Since the \code{mgee} function just calls the \code{gee} function all help for \code{\link[gee]{gee}} applies to \code{mgee}.
 }
 \usage{
 mgee(formula = formula(data), id = id, data = parent.frame(), subset, na.action, R = NULL, b = NULL, tol = 0.001, maxiter = 25, family = gaussian, corstr = "independence", Mv = 1, silent = TRUE, contrasts = NULL, scale.fix = FALSE, scale.value = 1, v4.4compat = FALSE)
@@ -37,8 +36,8 @@ A gee object with two extra elements to the list, u and omega (see \code{\link{s
 }
 %\references{ ~put references to the literature/web site here ~ }
 \author{ last few lines by M.P. Fay, for the rest see \code{\link[gee]{gee}} package DESCRIPTION }
-%\note{ ~~further notes~~  ~Make other sections like Warning with \section{Warning }{....} ~}
-\seealso{\code{\link[gee]{gee}}}
+\note{ You can alternatively take the output from \code{gee} and apply the \code{\link{geeUOmega}} function. But see the warning for that function. }
+\seealso{\code{\link[gee]{gee}}, \code{\link{geeUOmega}}}
 \examples{
 ##  example from gee help
 data(warpbreaks)

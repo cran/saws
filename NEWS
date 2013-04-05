@@ -1,0 +1,16 @@
+
+Changes in version 0.9-6.0
+
+ * Changed /inst/News.Rd to NEWS
+ * changed help, no longer says it does Cox regression
+ * modified mgee function so that if calls the gee function then geeUOmega. The previous method was clunky since it basically copied the code from gee and added some lines. Now I do it a better way by  calling the gee function, then using it as an argument in the newly created geeUOmega function which inputs the output from gee. Changed help accordingly.  
+
+Changes in version 0.9-5.3
+
+ * Changed print.saws file. It had an error when the test matrix was not p X p (where p=number of coefficients).
+ 
+ * Removed dependence on survival. I hope to put adjustment for Cox proportional hazards in the future, but have not done it yet, so there is no dependence.
+
+Changes in version 0.9-3.3
+
+ * fix bug when the number of parameters is 1 (see dfCalc.R).

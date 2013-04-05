@@ -1,5 +1,5 @@
 
-export(saws,mgee,
+export(saws,mgee,geeUOmega,
     dfCalc,
     PsiHatCalc,
     PsiTildeCalc,

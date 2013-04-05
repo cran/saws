@@ -13,7 +13,6 @@ saws(x,test = diag(p), beta0 = matrix(0, p, 1),
     conf.level = 0.95, method = c("d3", "d5", "d1", "d2", "d4", "dm"),bound=.75)
 }
 \arguments{
-%  \item{geeobj}{object of class 'gee'}
   \item{x}{a list containing three elements: coefficients, u, omega (see details)}
   \item{test}{either a numeric vector giving elements of coefficient to test,
 or an r by p matrix of constants for testing (see details)}
@@ -24,9 +23,9 @@ or an r by p matrix of constants for testing (see details)}
 }
 \details{
 Typically, the x object is created in a specialized function. Currently there are three such functions, 
-\code{link{lmfitSaws}},\code{\link{mgee}} and \code{\link{clogistCalc}}. The function \code{lmfitSaws} 
-is a simple linear model function that creates all the output needed. The function \code{mgee} is a slight modification of the 
-gee function that creates the 'u' matrix and the 'omega' array. The 'coefficients' is a vector with p parameter 
+\code{link{lmfitSaws}},\code{\link{geeUOmega}} and \code{\link{clogistCalc}}. The function \code{\link{lmfitSaws}} 
+is a simple linear model function that creates all the output needed. The function \code{\link{geeUOmega}} takes output from the gee function of the gee package
+and  creates the 'u' matrix and the 'omega' array. The 'coefficients' is a vector with p parameter 
 estimates, and is a standard output from the regression. The matrix 'u' is K by p with u[i,] the ith 
 estimating equation, where there are K approximately independent estimating equations. The array 'omega' is K by p by p  
 where omega[i,,] is a p by p matrix estimating - du/dbeta (here beta=coefficients). See Fay and Graubard (2001) for details. 
@@ -67,7 +66,7 @@ An object of class 'saws'. A list with elements:
 Biometrics 57: 1198-1206. (for copy see \code{vignette("FayGraubard")})}
 \author{ M.P. Fay}
 %\note{ ~~further notes~~  ~Make other sections like Warning with \section{Warning }{....} ~}
-\seealso{ For examples, see \code{\link{mgee}} and \code{\link{clogistCalc}}. See also \code{\link{print.saws}}}
+\seealso{ For examples, see \code{\link{geeUOmega}} and \code{\link{clogistCalc}}. See also \code{\link{print.saws}}}
 %\examples{}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
