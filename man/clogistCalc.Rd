@@ -8,7 +8,8 @@ Perform conditional logistic regression with output formatted for input into \co
 will give confidence intervals and p-values. 
 }
 \usage{
-clogistCalc(n, m, x, set, initb = NA, h = 1e-04, maxitr = 15, epsilon = 1e-08, conf.level = 0.95)
+clogistCalc(n, m, x, set, initb = NA, h = 1e-04, maxitr = 15,
+     epsilon = 1e-08, conf.level = 0.95)
 clogistLoglike(n, m, x, beta)
 clogistInfo(n, m, x, beta, h)
 }

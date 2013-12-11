@@ -27,7 +27,7 @@ A list with the following elements
 \item{omega}{K by p by p array, see details}
 }
 \references{ Fay and Graubard (2001). Small-Sample Adjustments for Wald-Type Tests Using Sandwich Estimators.
-Biometrics 57: 1198-1206. (for copy see \code{vignette("FayGraubard")}) }
+Biometrics 57: 1198-1206. (for copy see /inst/doc/ directory}
 \author{ M.P. Fay}
 %\note{ ~~further notes~~  ~Make other sections like Warning with \section{Warning }{....} ~}
 \seealso{\code{link{lm}}}

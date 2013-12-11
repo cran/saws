@@ -11,7 +11,10 @@ PsiTildeCalc(u, H, test, omega, vm, vminv, p, K)
 PsiHatCalc(u, H)
 dfCalc(Psi, u, omega, H, test, vm)
 %HCalc(omegai, b = 0.75, Vm = vm)
-sawsCalc(beta, u, omega, test = diag(p), beta0 = matrix(0, p, 1), conf.level = 0.95, method = c("d3", "d5", "d1", "d2", "d4", "dm"),bound=.75)
+sawsCalc(beta, u, omega, test = diag(p), 
+    beta0 = matrix(0, p, 1), conf.level = 0.95, 
+    method = c("d3", "d5", "d1", "d2", "d4", "dm"),
+    bound=.75)
 
 }
 \arguments{

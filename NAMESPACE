@@ -8,4 +8,6 @@ export(saws,mgee,geeUOmega,
     clogistLoglike,
     clogistInfo,lmfitSaws)
 
+import(gee)
+
 S3method(print, saws)

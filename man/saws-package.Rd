@@ -44,7 +44,7 @@ M.P. Fay
 Maintainer: Michael Fay <mfay@niaid.nih.gov>
 }
 \references{ Fay and Graubard (2001). Small-Sample Adjustments for Wald-Type Tests Using Sandwich Estimators.
-Biometrics 57: 1198-1206. (for copy see \code{vignette("FayGraubard")})}
+Biometrics 57: 1198-1206. (for copy see /inst/doc/ directory}
 \keyword{ package }
 %\seealso{\code{\link[<pkg>:<pkg>-package]{<pkg>}} ~~}
 \examples{

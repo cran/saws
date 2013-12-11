@@ -1,4 +1,8 @@
 
+Changes in version 0.9-6.1
+
+* had "fake" vignette, so removed .Rnw file. Now just pdf files in the /inst/doc/  directory.
+
 Changes in version 0.9-6.0
 
  * Changed /inst/News.Rd to NEWS

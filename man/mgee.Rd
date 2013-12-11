@@ -8,7 +8,11 @@ This function calls the \code{\link[gee]{gee}}  function from the \code{gee} pac
 Since the \code{mgee} function just calls the \code{gee} function all help for \code{\link[gee]{gee}} applies to \code{mgee}.
 }
 \usage{
-mgee(formula = formula(data), id = id, data = parent.frame(), subset, na.action, R = NULL, b = NULL, tol = 0.001, maxiter = 25, family = gaussian, corstr = "independence", Mv = 1, silent = TRUE, contrasts = NULL, scale.fix = FALSE, scale.value = 1, v4.4compat = FALSE)
+mgee(formula = formula(data), id = id, data = parent.frame(),
+    subset, na.action, R = NULL, b = NULL, tol = 0.001, 
+    maxiter = 25, family = gaussian, corstr = "independence", 
+    Mv = 1, silent = TRUE, contrasts = NULL, scale.fix = FALSE,
+    scale.value = 1, v4.4compat = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

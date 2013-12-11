@@ -63,7 +63,7 @@ An object of class 'saws'. A list with elements:
 \item{conf.int}{p by 2 matrix of confidence intervals} 
 }
 \references{ Fay and Graubard (2001). Small-Sample Adjustments for Wald-Type Tests Using Sandwich Estimators.
-Biometrics 57: 1198-1206. (for copy see \code{vignette("FayGraubard")})}
+Biometrics 57: 1198-1206. (for copy see /inst/doc/ directory)}
 \author{ M.P. Fay}
 %\note{ ~~further notes~~  ~Make other sections like Warning with \section{Warning }{....} ~}
 \seealso{ For examples, see \code{\link{geeUOmega}} and \code{\link{clogistCalc}}. See also \code{\link{print.saws}}}
