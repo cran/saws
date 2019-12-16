@@ -10,4 +10,7 @@ export(saws,mgee,geeUOmega,
 
 import(gee)
 
+importFrom("stats", "binomial", "gaussian", "glm.fit", "model.extract",
+             "model.matrix", "pf", "qt", "var")
+
 S3method(print, saws)

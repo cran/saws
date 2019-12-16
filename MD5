@@ -1,13 +1,13 @@
-68bca998fd70bbf738e1af6815927869 *DESCRIPTION
-c65886acb237f2c59413461de3d72c0b *NAMESPACE
-454b1a90f0b8b2666fa7efbfbb08c8c9 *NEWS
+5b88e45c0bd4c60aed78de1b9aff1512 *DESCRIPTION
+7db01e3da4c099ed3cfa93d61bbe040d *NAMESPACE
+5849bbf074a20324aa338eaf0e515a2c *NEWS
 8e49c5bc000284fd77aa528f79014d02 *R/PsiHatCalc.R
 b3795bfb63d467f9c842e090918f6069 *R/PsiTildeCalc.R
 f6869e079e4fe7e85e8c011145a8d676 *R/clogistCalc.R
 17d68c9b64b7851cb8f5b036ec85e102 *R/clogistInfo.R
 f2d9458d5a57b3657559a1eaf6d0eff4 *R/clogistLoglike.R
 35ce3014030e0d49326a3baf66944a02 *R/dfCalc.R
-addce9303f48b69243dd863438376a40 *R/geeUOmega.R
+abf8ffdb7485ab547d22b5baa47dc512 *R/geeUOmega.R
 d9c04d75e4cfc9150d5e0a2145334da5 *R/lmfitSaws.R
 35222210d1ed3e3ac999fa6e1866e3c2 *R/mgee.R
 c88ccc7df9f7e41ee91c1ce4f842dd80 *R/print.saws.R
@@ -30,5 +30,5 @@ b629ce1a6c40ecbcd1c1392ac0ebd73d *man/mgee.Rd
 d57b7869cf729b5264f913ce90474a21 *man/micefat.Rd
 d066f59cdbb6ee8a9192e914b64b9367 *man/print.saws.Rd
 24de0b5ba23f183221e78ef37645225e *man/saws-internal.Rd
-c411233ae87c27ec5023ba342bfc533f *man/saws-package.Rd
+7f7ca8736f92bd3c8c4ec1f17eae2cb9 *man/saws-package.Rd
 2697a7ae9556cf2da60b8ec1c1aba43d *man/saws.Rd

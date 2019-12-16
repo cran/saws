@@ -1,4 +1,10 @@
 
+Changes in version 0.9-6.2
+
+* the geeUOmega function had a call to model.matrix with a "contrasts" argument that was wrong, so that the contrast from the gee output was not necessarily being properly passed down. It is now fixed.  Thanks to Muriel Buri for pointing this out, and Allyson Mateja for help with the fix. 
+
+
+
 Changes in version 0.9-6.1
 
 * had "fake" vignette, so removed .Rnw file. Now just pdf files in the /inst/doc/  directory.

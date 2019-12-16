@@ -14,7 +14,13 @@ geeUOmega<-function(geeOutput){
     m <- eval(m, parent.frame())
     Terms <- attr(m, "terms")
     y <- as.matrix(model.extract(m, "response"))
-    x <- model.matrix(Terms, m, contrasts)
+    # 2019-12-06: there was some bad coding in earlier versions
+    # it was
+    #    x <- model.matrix(Terms, m, contrasts)
+    # but contrasts is never defined..in practice it was often gave a NULL value and was ignored:
+    # Thanks for Muriel Buri for pointing this out.
+    # here is the fix...thanks Allyson Mateja
+    x <- model.matrix(Terms, m, fit$contrasts)
     Q <- qr(x)
     if (Q$rank < ncol(x)) 
         stop("rank-deficient model matrix")
