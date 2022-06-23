@@ -26,9 +26,10 @@ function (x, digits = NULL, ...)
         
     r<-dim(x$test)[[1]]
     ## remember if x$test is r X p, then length(coef)=r
-    ## and x$coefficients = t(test) %*% beta
+    ## [correction: June 23, 2022, I had forgot "-beta0" in next line]
+    ## and x$coefficients = t(test) %*% beta - beta0
     ## where beta=original coefficients
-    ## so lenght(x$coefficients)= r
+    ## so length(x$coefficients)= r
     ## previously I had, p<-length(x$coefficients)
     ## Now (April 19, 2012) it is corrected
     p<-dim(x$test)[[2]]
@@ -42,7 +43,8 @@ function (x, digits = NULL, ...)
         paste("Upper",100*attr(x$conf.int,"conf.level"),"% CL"),
         "2-sided p-value"))
 
-     if (r==p && all(x$test==diag(p))){
+     # June 23, 2022: Correction, added "&& all(x$beta0==0)" to if statement
+     if (r==p && all(x$test==diag(p)) && all(x$beta0==0)){
         print(output)
         cat("--- p-values associated with tests that estimates are different from zero")
         cat("\n")

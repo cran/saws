@@ -65,7 +65,8 @@ An object of class 'saws'. A list with elements:
 \references{ Fay and Graubard (2001). Small-Sample Adjustments for Wald-Type Tests Using Sandwich Estimators.
 Biometrics 57: 1198-1206. (for copy see /inst/doc/ directory)}
 \author{ M.P. Fay}
-%\note{ ~~further notes~~  ~Make other sections like Warning with \section{Warning }{....} ~}
+\note{For versions prior to 0.9-7.0, when there was an offset in the formula, the results where incorrect. See the NEWS file. }
+%~~further notes~~  ~Make other sections like Warning with \section{Warning }{....} ~}
 \seealso{ For examples, see \code{\link{geeUOmega}} and \code{\link{clogistCalc}}. See also \code{\link{print.saws}}}
 %\examples{}
 % Add one or more standard keywords, see file 'KEYWORDS' in the

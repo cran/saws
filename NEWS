@@ -1,3 +1,8 @@
+Changes in version 0.9-7.0
+
+* the geeUOmega function had an error, and it gave the wrong answer when there was an offset. Thanks to Amy MacDougall for pointing this out.
+* the print.saws did not print out the test matrix and beta0 if beta0 NE 0. Now it does. This is explained in the man page for print.saws. Added a note to man page for saws.
+
 
 Changes in version 0.9-6.2
 

@@ -43,10 +43,21 @@ geeUOmega<-function(geeOutput){
     ### end of lines from gee
     # correction to gee: forgot to add back offset
     # residuals and fitted.values were wrong if offset was present
-    # calculate dmu/deta without offset added 
+    # June 23, 2022: Correction to the correction!
+    #  Thanks to Amy MacDougall for finding this error
+    #  originally, I had 
+    #####  # calculate dmu/deta without offset added 
+    #####  DmuDeta<-fit$family$mu.eta(eta)
+    #####  # calculate mu with offset added
+    #####  mu <- as.vector(fit$family$linkinv(eta+offset))
+    #   But I should have redefined the eta as eta<- eta+offset
+    #   then just used DmuDeta<-fit$family$mu.eta(eta) and
+    #   mu <- as.vector(fit$family$linkinv(eta))
+    #   Here is the correction:
+    eta<- eta+ offset
     DmuDeta<-fit$family$mu.eta(eta)
-    # calculate mu with offset added
-    mu <- as.vector(fit$family$linkinv(eta+offset))
+    mu <- as.vector(fit$family$linkinv(eta))
+
     fit$fitted.values <- mu
     # correction to gee: residuals are wrong if original dim(y)==2
     # i.e., wrong if N!=rep(1,length(y))
